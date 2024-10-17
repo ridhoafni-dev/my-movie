@@ -1,0 +1,55 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:my_movie/common/state_enum.dart';
+import 'package:my_movie/presentation/providers/popular_movies_notifier.dart';
+import 'package:my_movie/presentation/widgets/movie_card.dart';
+import 'package:provider/provider.dart';
+
+class NowPlayingMoviePage extends StatefulWidget {
+  static const ROUTE_NAME = '/now-playing-movie';
+
+  const NowPlayingMoviePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _NowPlayingMoviePageState();
+}
+
+class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        Provider.of<PopularMoviesNotifier>(context, listen: false)
+            .fetchPopularMovies());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Popular Movies')),
+      body: Padding(padding: const EdgeInsets.all(8.0), child: _buildList()),
+    );
+  }
+}
+
+Widget _buildList() {
+  return Consumer<PopularMoviesNotifier>(
+    builder: (context, data, child) {
+      if (data.state == RequestState.Loading) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (data.state == RequestState.Loaded) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            final movie = data.popularMovies[index];
+            return MovieCard(movie: movie);
+          },
+          itemCount: data.popularMovies.length,
+        );
+      } else {
+        return Center(child: Text(data.message));
+      }
+    },
+  );
+}

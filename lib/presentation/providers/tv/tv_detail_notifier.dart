@@ -36,9 +36,9 @@ class TvDetailNotifier extends ChangeNotifier {
   List<Tv> _tvRecommendations = [];
 
   List<Tv> get tvRecommendations => _tvRecommendations;
-  RequestState _movieRecommendationsState = RequestState.Empty;
+  RequestState _tvRecommendationsState = RequestState.Empty;
 
-  RequestState get movieRecommendationsState => _movieRecommendationsState;
+  RequestState get tvRecommendationsState => _tvRecommendationsState;
 
   String _message = '';
   String get message => _message;
@@ -65,11 +65,11 @@ class TvDetailNotifier extends ChangeNotifier {
       notifyListeners();
     });
     recommendationResult.fold((failure) {
-      _movieRecommendationsState = RequestState.Error;
+      _tvRecommendationsState = RequestState.Error;
       _message = failure.message;
     }, (movies) {
       _tvRecommendations = movies;
-      _movieRecommendationsState = RequestState.Loaded;
+      _tvRecommendationsState = RequestState.Loaded;
     });
   }
 

@@ -12,16 +12,16 @@
       ],
       "id": 1,
       "media_type": "movie",
-      "release_date": "2020-05-05",
-      "title": "Title",
       "original_language": "en",
       "original_title": "Original Title",
       "overview": "Overview",
       "popularity": 1.0,
       "poster_path": "/path.jpg",
+      "release_date": "2020-05-05",
+      "video": false,
+      "title": "Title",
       "vote_average": 1.0,
-      "vote_count": 1,
-      "episode_run_time": 120
+      "vote_count": 1
     }
   ],
   "total_pages": 1,

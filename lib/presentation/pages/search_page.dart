@@ -21,6 +21,7 @@ class _SearchPageState extends State<SearchPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     Provider.of<MovieSearchNotifier>(context, listen: false).resetState();
+    Provider.of<TvSearchNotifier>(context, listen: false).resetState();
   }
 
   @override
@@ -38,6 +39,8 @@ class _SearchPageState extends State<SearchPage> {
               onSubmitted: (query) {
                 Provider.of<MovieSearchNotifier>(context, listen: false)
                     .fetchMovieSearch(query);
+                Provider.of<TvSearchNotifier>(context, listen: false)
+                    .fetchTvSearch(query);
               },
               decoration: const InputDecoration(
                   hintText: 'Search title',
@@ -88,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
                         const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
-                            "Tv Shows",
+                            "Tv Series",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),

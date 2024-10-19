@@ -6,7 +6,6 @@ import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/genre.dart';
 import 'package:my_movie/domain/entity/tv/tv.dart';
 import 'package:my_movie/domain/entity/tv/tv_detail.dart';
-import 'package:my_movie/presentation/providers/movie/movie_detail_notifier.dart';
 import 'package:my_movie/presentation/providers/tv/tv_detail_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -154,17 +153,17 @@ class DetailContent extends StatelessWidget {
                             ),
                             const SizedBox(height: 16),
                             _buildTextHeading6('Recommendations'),
-                            Consumer<MovieDetailNotifier>(
+                            Consumer<TvDetailNotifier>(
                                 builder: (context, data, child) {
-                              if (data.movieRecommendationsState ==
+                              if (data.tvRecommendationsState ==
                                   RequestState.Loading) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
-                              } else if (data.movieRecommendationsState ==
+                              } else if (data.tvRecommendationsState ==
                                   RequestState.Error) {
                                 return Text(data.message);
-                              } else if (data.movieRecommendationsState ==
+                              } else if (data.tvRecommendationsState ==
                                   RequestState.Loaded) {
                                 return SizedBox(
                                   height: 150,

@@ -3,40 +3,41 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_movie/data/model/movie/movie_model.dart';
 import 'package:my_movie/data/model/movie/movie_response.dart';
+import 'package:my_movie/data/model/tv/tv_model.dart';
+import 'package:my_movie/data/model/tv/tv_response.dart';
 
 import '../../utils/json_reader.dart';
 
 void main() {
-  const tMovieModel = MovieModel(
+  const tTvModel = TvModel(
     adult: false,
     backdropPath: "/path.jpg",
     genreIds: [1, 2, 3, 4],
     id: 1,
-    originalTitle: "Original Title",
+    originalName: "Original Title",
     overview: "Overview",
     popularity: 1.0,
     posterPath: "/path.jpg",
     releaseDate: "2020-05-05",
-    title: "Title",
+    name: "Title",
     voteAverage: 1.0,
     voteCount: 1,
-    video: false,
   );
 
-  const tMovieResponseModel =
-      MovieResponse(movieList: <MovieModel>[tMovieModel]);
+  const tTvResponseModel =
+      TvResponse(tvList: <TvModel>[tTvModel]);
 
   group("from json", () {
     test("should return valid model from json", () async {
       // arrange
       final Map<String, dynamic> jsonMap =
-      json.decode(readJson("dummy_data/movie_recommendations.json"));
+      json.decode(readJson("dummy_data/tv_recommendations.json"));
 
       // act
-      final result = MovieResponse.fromJson(jsonMap);
+      final result = TvResponse.fromJson(jsonMap);
 
       // assert
-      expect(result, tMovieResponseModel);
+      expect(result, tTvResponseModel);
     });
 
   });
@@ -46,7 +47,7 @@ void main() {
       // arrange
 
       // act
-      final result = tMovieResponseModel.toJson();
+      final result = tTvResponseModel.toJson();
       // assert
       final expectedJsonMap = {
         "results": [
@@ -55,13 +56,12 @@ void main() {
             'backdrop_path': '/path.jpg',
             'genre_ids': [1, 2, 3, 4],
             'id': 1,
-            'original_title': 'Original Title',
+            'original_name': 'Original Title',
             'overview': 'Overview',
             'popularity': 1.0,
             'poster_path': '/path.jpg',
             'release_date': '2020-05-05',
-            'video': false,
-            'title': 'Title',
+            'name': 'Title',
             'vote_average': 1.0,
             'vote_count': 1
           }

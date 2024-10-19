@@ -7,12 +7,11 @@ import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/movie/movie.dart';
 import 'package:my_movie/domain/usecases/movie/get_popular_movies.dart';
 import 'package:my_movie/domain/usecases/movie/get_top_rated_movies.dart';
-import 'package:my_movie/domain/usecases/tv/get_now_playing_tv_series.dart';
 import 'package:my_movie/presentation/providers/movie/movie_list_notifier.dart';
 
 import 'movie_list_notifier_test.mocks.dart';
 
-@GenerateMocks([GetNowPlayingTvSeries, GetPopularMovies, GetTopRatedMovies])
+@GenerateMocks([GetPopularMovies, GetTopRatedMovies])
 void main() {
   late MovieListNotifier provider;
   late MockGetPopularMovies mockGetPopularMovies;

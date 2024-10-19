@@ -9,6 +9,7 @@ import 'package:my_movie/data/repositories/tv_repository_impl.dart';
 import 'package:my_movie/domain/repositories/movie_repository.dart';
 import 'package:my_movie/domain/repositories/tv_repository.dart';
 import 'package:my_movie/domain/usecases/movie/get_movie_detail.dart';
+import 'package:my_movie/domain/usecases/movie/get_movie_watchlist_status.dart';
 import 'package:my_movie/domain/usecases/movie/get_popular_movies.dart';
 import 'package:my_movie/domain/usecases/movie/get_watchlist_movies.dart';
 import 'package:my_movie/domain/usecases/movie/remove_movie_watchlist.dart';
@@ -35,6 +36,7 @@ import 'package:my_movie/presentation/providers/tv/watchlist_tv_notifier.dart';
 import 'data/datasources/tv_remote_data_source.dart';
 import 'domain/usecases/movie/get_movie_recommendations.dart';
 import 'domain/usecases/movie/get_top_rated_movies.dart';
+import 'domain/usecases/tv/remove_tv_watchlist.dart';
 
 final locator = GetIt.instance;
 
@@ -45,15 +47,6 @@ Future<void> init() async {
     getTopRatedMovies: locator(),
     getPopularMovies: locator(),
   ));
-  locator.registerFactory(
-          () => TvSeriesListNotifier(useCaseGetNowPlayingTvSeries: locator()));
-  locator.registerFactory(() => MovieDetailNotifier(
-    useCaseGetMovieDetail: locator(),
-    useCaseGetMovieRecommendations: locator(),
-    useCaseGetWatchListStatus: locator(),
-    useCaseSaveWatchlist: locator(),
-    useCaseRemoveWatchlist: locator(),
-  ));
   locator.registerFactory(() => WatchlistMovieNotifier(
     useCaseGetWatchlistMovies: locator(),
   ));
@@ -63,9 +56,18 @@ Future<void> init() async {
   locator.registerFactory(() => TopRatedMoviesNotifier(
     useCaseGetTopRatedMovies: locator(),
   ));
+  locator.registerFactory(() => MovieDetailNotifier(
+    useCaseGetMovieDetail: locator(),
+    useCaseGetMovieRecommendations: locator(),
+    useCaseGetWatchListStatus: locator(),
+    useCaseSaveWatchlist: locator(),
+    useCaseRemoveWatchlist: locator(),
+  ));
   locator.registerFactory(
           () => MovieSearchNotifier(useCaseGetSearchMovies: locator()));
 
+  locator.registerFactory(
+          () => TvSeriesListNotifier(useCaseGetNowPlayingTvSeries: locator()));
   locator.registerFactory(() => TvDetailNotifier(
     useCaseGetTvDetail: locator(),
     useCaseGetTvRecommendations: locator(),
@@ -80,13 +82,15 @@ Future<void> init() async {
 
   // use case
   locator.registerLazySingleton(() => GetTvDetail(locator()));
-  locator.registerLazySingleton(() => RemoveMovieWatchlist(locator()));
   locator.registerLazySingleton(() => GetTvRecommendations(locator()));
   locator.registerLazySingleton(() => GetTvWatchlistStatus(locator()));
   locator.registerLazySingleton(() => SaveTvWatchlist(locator()));
   locator.registerLazySingleton(() => GetWatchlistTvSeries(locator()));
   locator.registerLazySingleton(() => SearchTvSeries(locator()));
   locator.registerLazySingleton(() => GetNowPlayingTvSeries(locator()));
+  locator.registerLazySingleton(() => RemoveTvWatchlist(locator()));
+
+  locator.registerLazySingleton(() => GetMovieWatchListStatus(locator()));
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));

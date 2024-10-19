@@ -1,8 +1,4 @@
 {
-  "dates": {
-    "maximum": "2021-05-23",
-    "minimum": "2021-04-05"
-  },
   "page": 1,
   "results": [
     {
@@ -15,17 +11,19 @@
         4
       ],
       "id": 1,
+      "media_type": "tv",
       "original_language": "en",
-      "original_name": "Original Name",
+      "original_name": "Original Title",
       "overview": "Overview",
       "popularity": 1.0,
       "poster_path": "/path.jpg",
       "release_date": "2020-05-05",
-      "name": "Name",
+      "video": false,
+      "name": "Title",
       "vote_average": 1.0,
       "vote_count": 1
     }
   ],
-  "total_pages": 47,
-  "total_results": 940
+  "total_pages": 1,
+  "total_results": 10
 }

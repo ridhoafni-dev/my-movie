@@ -24,8 +24,8 @@ import 'package:my_movie/presentation/providers/tv/watchlist_tv_notifier.dart';
 import 'package:provider/provider.dart';
 import 'injection.dart' as di;
 
-void main() {
-  di.init();
+void main() async {
+  await di.init();
   runApp(const MyApp());
 }
 

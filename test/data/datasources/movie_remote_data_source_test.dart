@@ -136,8 +136,7 @@ void main() {
       expect(result, equals(tMovieList));
     });
 
-    test('should throw Server Exception when the response code is 404 or other',
-        () async {
+    test('should throw Server Exception when the response code is 404 or other', () async {
       // arrange
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))

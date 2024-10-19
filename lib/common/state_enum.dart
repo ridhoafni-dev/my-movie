@@ -2,5 +2,5 @@ enum RequestState {
   Empty,
   Loading,
   Loaded,
-  Error,
+  Error, NotFound,
 }

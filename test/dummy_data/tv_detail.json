@@ -16,7 +16,7 @@
   "homepage": "https://google.com",
   "id": 1,
   "original_language": "en",
-  "original_title": "Original Title",
+  "original_name": "Original Title",
   "overview": "Overview",
   "popularity": 1.0,
   "poster_path": "/path.jpg",
@@ -54,7 +54,7 @@
   ],
   "status": "Status",
   "tagline": "Tagline",
-  "title": "Title",
+  "name": "Title",
   "vote_average": 1.0,
   "vote_count": 1,
   "runtime": 120

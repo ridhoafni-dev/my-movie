@@ -22,7 +22,7 @@ import 'package:search/presentation/providers/movie_search_notifier.dart';
 import 'package:search/presentation/providers/tv_search_notifier.dart';
 import 'package:styles/colors.dart';
 import 'package:styles/text_styles.dart';
-import 'package:utils/core.dart';
+import 'package:utils/utils.dart';
 import 'package:utils/utils/utils.dart';
 
 import 'injection.dart' as di;

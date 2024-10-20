@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:model/tv/tv.dart';
+import 'package:utils/utils.dart';
 import 'package:utils/utils/constants.dart';
 import '../pages/tv_detail_page.dart';
 
@@ -15,7 +16,7 @@ class TvCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, TvDetailPage.ROUTE_NAME,
+          Navigator.pushNamed(context, TV_DETAIL_ROUTE,
               arguments: {'id': tv.id});
         },
         child: Stack(

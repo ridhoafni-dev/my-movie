@@ -223,7 +223,7 @@ class TvList extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        TvDetailPage.ROUTE_NAME,
+                        TV_DETAIL_ROUTE,
                         arguments: {'id': tv.id},
                       );
                     },

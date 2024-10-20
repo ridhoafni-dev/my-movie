@@ -7,7 +7,7 @@ import 'package:model/movie/movie_detail.dart';
 import 'package:my_movie/presentation/providers/movie/movie_detail_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:styles/styles.dart';
-import 'package:utils/core.dart';
+import 'package:utils/utils.dart';
 
 class MovieDetailPage extends StatefulWidget {
 

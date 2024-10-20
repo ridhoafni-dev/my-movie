@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/presentation/pages/movie_detail_page.dart';
+import 'package:my_movie/presentation/pages/movie/movie_detail_page.dart';
 
 import '../../common/constans.dart';
 

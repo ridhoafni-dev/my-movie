@@ -107,6 +107,23 @@ class MockMovieRepository extends _i1.Mock implements _i6.MovieRepository {
   }
 
   @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>> getNowPlayingMovies() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNowPlayingMovies,
+          [],
+        ),
+        returnValue: _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>>.value(
+            _FakeEither_0<_i8.Failure, List<_i9.Movie>>(
+          this,
+          Invocation.method(
+            #getNowPlayingMovies,
+            [],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>>);
+
+  @override
   _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>> getPopularMovies() =>
       (super.noSuchMethod(
         Invocation.method(
@@ -268,6 +285,17 @@ class MockMovieRemoteDataSource extends _i1.Mock
   }
 
   @override
+  _i7.Future<List<_i12.MovieModel>> getNowPlayingMovies() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNowPlayingMovies,
+          [],
+        ),
+        returnValue:
+            _i7.Future<List<_i12.MovieModel>>.value(<_i12.MovieModel>[]),
+      ) as _i7.Future<List<_i12.MovieModel>>);
+
+  @override
   _i7.Future<List<_i12.MovieModel>> getPopularMovies() => (super.noSuchMethod(
         Invocation.method(
           #getPopularMovies,
@@ -414,6 +442,40 @@ class MockTvRepository extends _i1.Mock implements _i16.TvRepository {
       ) as _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>>);
 
   @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>> getPopularTvSeries() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPopularTvSeries,
+          [],
+        ),
+        returnValue: _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>>.value(
+            _FakeEither_0<_i8.Failure, List<_i17.Tv>>(
+          this,
+          Invocation.method(
+            #getPopularTvSeries,
+            [],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>>);
+
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>> getTopRatedTvSeries() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTopRatedTvSeries,
+          [],
+        ),
+        returnValue: _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>>.value(
+            _FakeEither_0<_i8.Failure, List<_i17.Tv>>(
+          this,
+          Invocation.method(
+            #getTopRatedTvSeries,
+            [],
+          ),
+        )),
+      ) as _i7.Future<_i2.Either<_i8.Failure, List<_i17.Tv>>>);
+
+  @override
   _i7.Future<_i2.Either<_i8.Failure, _i18.TvDetail>> getTvDetail(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -542,6 +604,24 @@ class MockTvRemoteDataSource extends _i1.Mock
   _i7.Future<List<_i20.TvModel>> getNowPlayingTvSeries() => (super.noSuchMethod(
         Invocation.method(
           #getNowPlayingTvSeries,
+          [],
+        ),
+        returnValue: _i7.Future<List<_i20.TvModel>>.value(<_i20.TvModel>[]),
+      ) as _i7.Future<List<_i20.TvModel>>);
+
+  @override
+  _i7.Future<List<_i20.TvModel>> getPopularTvSeries() => (super.noSuchMethod(
+        Invocation.method(
+          #getPopularTvSeries,
+          [],
+        ),
+        returnValue: _i7.Future<List<_i20.TvModel>>.value(<_i20.TvModel>[]),
+      ) as _i7.Future<List<_i20.TvModel>>);
+
+  @override
+  _i7.Future<List<_i20.TvModel>> getTopRatedTvSeries() => (super.noSuchMethod(
+        Invocation.method(
+          #getTopRatedTvSeries,
           [],
         ),
         returnValue: _i7.Future<List<_i20.TvModel>>.value(<_i20.TvModel>[]),

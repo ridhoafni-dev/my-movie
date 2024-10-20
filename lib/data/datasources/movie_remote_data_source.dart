@@ -8,6 +8,8 @@ import 'package:my_movie/data/model/movie/movie_model.dart';
 import 'package:my_movie/data/model/movie/movie_response.dart';
 
 abstract class MovieRemoteDataSource {
+  Future<List<MovieModel>> getNowPlayingMovies();
+
   Future<List<MovieModel>> getPopularMovies();
 
   Future<List<MovieModel>> getTopRatedMovies();
@@ -29,6 +31,24 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   late final http.Client client;
 
   MovieRemoteDataSourceImpl({required this.client});
+
+  @override
+  Future<List<MovieModel>> getNowPlayingMovies() async {
+    try {
+      final response =
+      await client.get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'));
+      if (response.statusCode == 200) {
+        return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      } else {
+        throw ServerException(message: response.body);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error--> $e");
+      }
+      throw const ServerException(message: "Failed to connect to server");
+    }
+  }
 
   @override
   Future<MovieDetailResponse> getMovieDetail(int id) async {

@@ -26,31 +26,6 @@ class TvDetail extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  TvDetail copyWith({
-    bool? adult,
-    String? backdropPath,
-    List<Genre>? genres,
-    int? id,
-    String? originalName,
-    String? overview,
-    String? posterPath,
-    String? name,
-    double? voteAverage,
-    int? voteCount,
-  }) =>
-      TvDetail(
-        adult: adult ?? this.adult,
-        backdropPath: backdropPath ?? this.backdropPath,
-        genres: genres ?? this.genres,
-        id: id ?? this.id,
-        originalName: this.originalName,
-        overview: overview ?? this.overview,
-        posterPath: posterPath ?? this.posterPath,
-        name: name ?? this.name,
-        voteAverage: voteAverage ?? this.voteAverage,
-        voteCount: voteCount ?? this.voteCount,
-      );
-
   @override
   List<Object?> get props => [
         adult,

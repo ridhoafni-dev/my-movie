@@ -4,10 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:my_movie/common/exception.dart';
-import 'package:my_movie/data/datasources/movie_remote_data_source.dart';
 import 'package:my_movie/data/datasources/tv_remote_data_source.dart';
-import 'package:my_movie/data/model/movie/movie_detail_response.dart';
-import 'package:my_movie/data/model/movie/movie_response.dart';
 import 'package:my_movie/data/model/tv/tv_detail_response.dart';
 import 'package:my_movie/data/model/tv/tv_response.dart';
 

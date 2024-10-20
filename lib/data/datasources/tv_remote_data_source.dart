@@ -10,6 +10,10 @@ import 'package:my_movie/data/model/tv/tv_response.dart';
 abstract class TvRemoteDataSource {
   Future<List<TvModel>> getNowPlayingTvSeries();
 
+  Future<List<TvModel>> getPopularTvSeries();
+
+  Future<List<TvModel>> getTopRatedTvSeries();
+
   Future<TvDetailResponse> getTvDetail(int id);
 
   Future<List<TvModel>> getTvRecommendations(int id);
@@ -76,6 +80,46 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
     try {
       final response = await client
           .get(Uri.parse('$BASE_URL/tv/airing_today'), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $ACCESS_TOKEN",
+      });
+      if (response.statusCode == 200) {
+        return TvResponse.fromJson(json.decode(response.body))
+            .tvList;
+      } else {
+        throw ServerException(message: response.body);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      throw const ServerException(message: "Failed to connect to server");
+    }
+  }
+
+  @override
+  Future<List<TvModel>> getPopularTvSeries() async {
+    try {
+      final response = await client
+          .get(Uri.parse('$BASE_URL/tv/popular'), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $ACCESS_TOKEN",
+      });
+      if (response.statusCode == 200) {
+        return TvResponse.fromJson(json.decode(response.body))
+            .tvList;
+      } else {
+        throw ServerException(message: response.body);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      throw const ServerException(message: "Failed to connect to server");
+    }
+  }
+
+  @override
+  Future<List<TvModel>> getTopRatedTvSeries() async {
+    try {
+      final response = await client
+          .get(Uri.parse('$BASE_URL/tv/top_rated'), headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $ACCESS_TOKEN",
       });

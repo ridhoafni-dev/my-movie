@@ -1,26 +1,25 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/presentation/pages/now_paying_tv_page.dart';
-import 'package:my_movie/presentation/providers/tv/tv_series_list_notifier.dart';
+import 'package:my_movie/presentation/pages/tv/now_paying_tv_page.dart';
+import 'package:my_movie/presentation/providers/tv/now_playing_tv_series_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'now_playing_tv_series_page_test.mocks.dart';
 
-@GenerateMocks([TvSeriesListNotifier])
+@GenerateMocks([NowPlayingTvSeriesNotifier])
 void main() {
-  late MockTvSeriesListNotifier mockNotifier;
+  late MockNowPlayingTvSeriesNotifier mockNotifier;
 
   setUp(() {
-    mockNotifier = MockTvSeriesListNotifier();
+    mockNotifier = MockNowPlayingTvSeriesNotifier();
   });
 
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TvSeriesListNotifier>.value(
+    return ChangeNotifierProvider<NowPlayingTvSeriesNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
         home: body,
@@ -30,7 +29,7 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.nowPlayingState).thenReturn(RequestState.Loading);
+    when(mockNotifier.state).thenReturn(RequestState.Loading);
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -43,7 +42,7 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.nowPlayingState).thenReturn(RequestState.Loaded);
+    when(mockNotifier.state).thenReturn(RequestState.Loaded);
     when(mockNotifier.nowPlayingTvSeries).thenReturn(<Tv>[]);
 
     final listViewFinder = find.byType(ListView);
@@ -55,7 +54,7 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.nowPlayingState).thenReturn(RequestState.Error);
+    when(mockNotifier.state).thenReturn(RequestState.Error);
     when(mockNotifier.message).thenReturn('Error message');
 
     final textFinder = find.byKey(const Key('error_message'));

@@ -6,13 +6,9 @@ import 'package:mockito/mockito.dart';
 import 'package:my_movie/common/exception.dart';
 import 'package:my_movie/common/failure.dart';
 import 'package:my_movie/data/model/genre_model.dart';
-import 'package:my_movie/data/model/movie/movie_detail_response.dart';
-import 'package:my_movie/data/model/movie/movie_model.dart';
 import 'package:my_movie/data/model/tv/tv_detail_response.dart';
 import 'package:my_movie/data/model/tv/tv_model.dart';
-import 'package:my_movie/data/repositories/movie_repository_impl.dart';
 import 'package:my_movie/data/repositories/tv_repository_impl.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
 import 'package:my_movie/domain/entity/tv/tv.dart';
 
 import '../../dummy_data/dummy_object.dart';

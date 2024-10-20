@@ -28,33 +28,6 @@ class MovieDetail extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  MovieDetail copyWith({
-    bool? adult,
-    String? backdropPath,
-    List<Genre>? genres,
-    int? id,
-    String? originalTitle,
-    String? overview,
-    String? posterPath,
-    int? runtime,
-    String? title,
-    double? voteAverage,
-    int? voteCount,
-  }) =>
-      MovieDetail(
-        adult: adult ?? this.adult,
-        backdropPath: backdropPath ?? this.backdropPath,
-        genres: genres ?? this.genres,
-        id: id ?? this.id,
-        originalTitle: originalTitle ?? this.originalTitle,
-        overview: overview ?? this.overview,
-        posterPath: posterPath ?? this.posterPath,
-        runtime: runtime ?? this.runtime,
-        title: title ?? this.title,
-        voteAverage: voteAverage ?? this.voteAverage,
-        voteCount: voteCount ?? this.voteCount,
-      );
-
   @override
   List<Object?> get props => [
         adult,

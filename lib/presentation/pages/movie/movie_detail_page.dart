@@ -8,7 +8,7 @@ import 'package:my_movie/domain/entity/movie/movie.dart';
 import 'package:my_movie/presentation/providers/movie/movie_detail_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/entity/movie/movie_detail.dart';
+import '../../../domain/entity/movie/movie_detail.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/movie-detail';
@@ -173,7 +173,7 @@ class DetailContent extends StatelessWidget {
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      final movie = recommendations[index];
+                                      final movie = data.movieRecommendations[index];
                                       return Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: InkWell(
@@ -181,7 +181,7 @@ class DetailContent extends StatelessWidget {
                                             Navigator.pushReplacementNamed(
                                                 context,
                                                 MovieDetailPage.ROUTE_NAME,
-                                                arguments: movie.id);
+                                                arguments: {"id": movie.id});
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -203,7 +203,7 @@ class DetailContent extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    itemCount: recommendations.length,
+                                    itemCount: data.movieRecommendations.length,
                                   ),
                                 );
                               } else {

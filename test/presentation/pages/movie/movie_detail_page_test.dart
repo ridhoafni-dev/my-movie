@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/presentation/pages/movie_detail_page.dart';
+import 'package:my_movie/presentation/pages/movie/movie_detail_page.dart';
 import 'package:my_movie/presentation/providers/movie/movie_detail_notifier.dart';
 import 'package:provider/provider.dart';
 

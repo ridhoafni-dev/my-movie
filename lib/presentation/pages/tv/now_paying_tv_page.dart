@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/presentation/providers/tv/tv_series_list_notifier.dart';
+import 'package:my_movie/presentation/providers/tv/now_playing_tv_series_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/tv_card.dart';
+import '../../widgets/tv_card.dart';
 
 class NowPlayingTvPage extends StatefulWidget {
   static const ROUTE_NAME = '/now-playing-tv';
@@ -19,7 +19,7 @@ class _NowPlayingTvPageState extends State<NowPlayingTvPage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<TvSeriesListNotifier>(listen: false, context)
+        Provider.of<NowPlayingTvSeriesNotifier>(listen: false, context)
             .fetchNowPlayingTvSeries());
   }
 
@@ -33,13 +33,13 @@ class _NowPlayingTvPageState extends State<NowPlayingTvPage> {
 }
 
 Widget _buildList() {
-  return Consumer<TvSeriesListNotifier>(
+  return Consumer<NowPlayingTvSeriesNotifier>(
     builder: (context, data, child) {
-      if (data.nowPlayingState == RequestState.Loading) {
+      if (data.state == RequestState.Loading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (data.nowPlayingState == RequestState.Loaded) {
+      } else if (data.state == RequestState.Loaded) {
         return ListView.builder(
           itemBuilder: (context, index) {
             final tv = data.nowPlayingTvSeries[index];

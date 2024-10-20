@@ -5,15 +5,17 @@ import 'package:mockito/mockito.dart';
 import 'package:my_movie/common/failure.dart';
 import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/movie/movie.dart';
+import 'package:my_movie/domain/usecases/movie/get_now_playing_movies.dart';
 import 'package:my_movie/domain/usecases/movie/get_popular_movies.dart';
 import 'package:my_movie/domain/usecases/movie/get_top_rated_movies.dart';
 import 'package:my_movie/presentation/providers/movie/movie_list_notifier.dart';
 
 import 'movie_list_notifier_test.mocks.dart';
 
-@GenerateMocks([GetPopularMovies, GetTopRatedMovies])
+@GenerateMocks([GetPopularMovies, GetTopRatedMovies, GetNowPlayingMovies])
 void main() {
   late MovieListNotifier provider;
+  late MockGetNowPlayingMovies mockGetNowPlayingMovies;
   late MockGetPopularMovies mockGetPopularMovies;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
   late int listenerCallCount;
@@ -22,9 +24,10 @@ void main() {
     listenerCallCount = 0;
     mockGetPopularMovies = MockGetPopularMovies();
     mockGetTopRatedMovies = MockGetTopRatedMovies();
+    mockGetNowPlayingMovies = MockGetNowPlayingMovies();
     provider = MovieListNotifier(
       getPopularMovies: mockGetPopularMovies,
-      getTopRatedMovies: mockGetTopRatedMovies,
+      getTopRatedMovies: mockGetTopRatedMovies, getNowPlayingMovies: mockGetNowPlayingMovies,
     )..addListener(() {
         listenerCallCount += 1;
       });

@@ -5,6 +5,7 @@ import 'package:my_movie/domain/entity/movie/movie.dart';
 import '../entity/movie/movie_detail.dart';
 
 abstract class MovieRepository {
+  Future<Either<Failure, List<Movie>>> getNowPlayingMovies();
   Future<Either<Failure, List<Movie>>> getPopularMovies();
   Future<Either<Failure, List<Movie>>> getTopRatedMovies();
   Future<Either<Failure, MovieDetail>> getMovieDetail(int id);

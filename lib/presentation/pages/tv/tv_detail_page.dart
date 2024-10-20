@@ -170,7 +170,7 @@ class DetailContent extends StatelessWidget {
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      final movie = recommendations[index];
+                                      final tv = data.tvRecommendations[index];
                                       return Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: InkWell(
@@ -178,7 +178,7 @@ class DetailContent extends StatelessWidget {
                                             Navigator.pushReplacementNamed(
                                                 context,
                                                 TvDetailPage.ROUTE_NAME,
-                                                arguments: movie.id);
+                                                arguments: {"id": tv.id});
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -186,7 +186,7 @@ class DetailContent extends StatelessWidget {
                                                     Radius.circular(8)),
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  '$BASE_IMAGE_URL${movie.posterPath}',
+                                                  '$BASE_IMAGE_URL${tv.posterPath}',
                                               placeholder: (context, url) =>
                                                   const Center(
                                                 child:
@@ -200,7 +200,7 @@ class DetailContent extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    itemCount: recommendations.length,
+                                    itemCount: data.tvRecommendations.length,
                                   ),
                                 );
                               } else {

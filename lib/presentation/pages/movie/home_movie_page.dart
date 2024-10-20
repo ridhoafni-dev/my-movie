@@ -2,23 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/domain/entity/tv/tv.dart';
 import 'package:my_movie/presentation/pages/about_page.dart';
-import 'package:my_movie/presentation/pages/movie_detail_page.dart';
-import 'package:my_movie/presentation/pages/now_paying_tv_page.dart';
-import 'package:my_movie/presentation/pages/popular_movie_page.dart';
+import 'package:my_movie/presentation/pages/movie/movie_detail_page.dart';
+import 'package:my_movie/presentation/pages/movie/popular_movie_page.dart';
+import 'package:my_movie/presentation/pages/movie/top_rated_movie_page.dart';
 import 'package:my_movie/presentation/pages/search_page.dart';
-import 'package:my_movie/presentation/pages/top_rated_movie_page.dart';
-import 'package:my_movie/presentation/pages/tv_detail_page.dart';
+import 'package:my_movie/presentation/pages/tv/tv_series_list_page.dart';
 import 'package:my_movie/presentation/pages/watchlist_page.dart';
-import 'package:my_movie/presentation/providers/tv/tv_series_list_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/constans.dart';
-import '../providers/movie/movie_list_notifier.dart';
+import '../../../common/constans.dart';
+import '../../providers/movie/movie_list_notifier.dart';
+import 'now_paying_movies_page.dart';
 
 class HomeMoviePage extends StatefulWidget {
-  static const ROUTE_NAME = "home";
+  static const ROUTE_NAME = "home-movie";
 
   const HomeMoviePage({super.key});
 
@@ -30,18 +28,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      final movieNotifier =
-          Provider.of<MovieListNotifier>(context, listen: false);
-      final tvNotifier =
-          Provider.of<TvSeriesListNotifier>(context, listen: false);
-
-      movieNotifier
-        ..fetchPopularMovies()
-        ..fetchTopRatedMovies();
-
-      tvNotifier.fetchNowPlayingTvSeries();
-    });
+    Future.microtask(
+        () => Provider.of<MovieListNotifier>(context, listen: false)
+          ..fetchNowPlayingMovies()
+          ..fetchPopularMovies()
+          ..fetchTopRatedMovies());
   }
 
   @override
@@ -66,6 +57,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               title: const Text('Movies'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.tv),
+              title: const Text('Tv Series'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, TvSeriesListPage.ROUTE_NAME);
               },
             ),
             ListTile(
@@ -102,9 +101,9 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               _buildSubHeading(
-                title: '${MovieType.NowPlaying.description} Tv Series',
-                onTap: () =>
-                    Navigator.pushNamed(context, NowPlayingTvPage.ROUTE_NAME),
+                title: '${MovieType.NowPlaying.description} Movies',
+                onTap: () => Navigator.pushNamed(
+                    context, NowPlayingMoviesPage.ROUTE_NAME),
               ),
               _buildMovieList(MovieType.NowPlaying),
               _buildSubHeading(
@@ -126,15 +125,13 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 }
 
 Widget _buildMovieList(MovieType type) {
-  return Consumer2<MovieListNotifier, TvSeriesListNotifier>(
-      builder: (context, movieData, tvData, child) {
+  return Consumer<MovieListNotifier>(builder: (context, movieData, child) {
     RequestState state;
     List<Movie> movies = [];
-    List<Tv> tvSeries = [];
     switch (type) {
       case MovieType.NowPlaying: // tv is now playing
-        state = tvData.nowPlayingState;
-        tvSeries = tvData.nowPlayingTvSeries;
+        state = movieData.nowPlayingMoviesState;
+        movies = movieData.nowPlayingMovies;
         break;
       case MovieType.Popular: // tv is popular
         state = movieData.popularMoviesState;
@@ -147,7 +144,6 @@ Widget _buildMovieList(MovieType type) {
       default:
         state = RequestState.Empty;
         movies = List.empty();
-        tvSeries = List.empty();
         break;
     }
 
@@ -156,11 +152,7 @@ Widget _buildMovieList(MovieType type) {
         child: CircularProgressIndicator(),
       );
     } else if (state == RequestState.Loaded) {
-      if (type == MovieType.NowPlaying) {
-        return TvList(tvSeries);
-      } else {
-        return MovieList(movies);
-      }
+      return MovieList(movies);
     } else {
       return Center(
         key: const Key('error_message'),
@@ -203,47 +195,6 @@ Widget _buildSubHeading({required String title, Function()? onTap}) {
       ],
     ),
   );
-}
-
-class TvList extends StatelessWidget {
-  final List<Tv> tvSeries;
-
-  const TvList(this.tvSeries, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 200,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: tvSeries.length,
-          itemBuilder: (context, index) {
-            final tv = tvSeries[index];
-
-            return Container(
-                padding: const EdgeInsets.all(8),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        TvDetailPage.ROUTE_NAME,
-                        arguments: {'id': tv.id},
-                      );
-                    },
-                    child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(16)),
-                        child: CachedNetworkImage(
-                          imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ))));
-          },
-        ));
-  }
 }
 
 class MovieList extends StatelessWidget {

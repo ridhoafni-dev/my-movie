@@ -10,6 +10,8 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:my_movie/common/failure.dart' as _i6;
 import 'package:my_movie/domain/entity/movie/movie.dart' as _i7;
 import 'package:my_movie/domain/repositories/movie_repository.dart' as _i2;
+import 'package:my_movie/domain/usecases/movie/get_now_playing_movies.dart'
+    as _i9;
 import 'package:my_movie/domain/usecases/movie/get_popular_movies.dart' as _i4;
 import 'package:my_movie/domain/usecases/movie/get_top_rated_movies.dart'
     as _i8;
@@ -88,6 +90,42 @@ class MockGetPopularMovies extends _i1.Mock implements _i4.GetPopularMovies {
 /// See the documentation for Mockito's code generation for more information.
 class MockGetTopRatedMovies extends _i1.Mock implements _i8.GetTopRatedMovies {
   MockGetTopRatedMovies() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.MovieRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeMovieRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.MovieRepository);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>>.value(
+            _FakeEither_1<_i6.Failure, List<_i7.Movie>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Movie>>>);
+}
+
+/// A class which mocks [GetNowPlayingMovies].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetNowPlayingMovies extends _i1.Mock
+    implements _i9.GetNowPlayingMovies {
+  MockGetNowPlayingMovies() {
     _i1.throwOnMissingStub(this);
   }
 

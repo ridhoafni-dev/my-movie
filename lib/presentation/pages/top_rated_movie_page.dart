@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/presentation/providers/movie/top_rated_movies_notifier.dart';
 import 'package:my_movie/presentation/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class TopRatedMoviePage extends StatefulWidget {
   static const ROUTE_NAME = '/top-rated-movie';
@@ -47,7 +47,8 @@ Widget _buildList() {
           itemCount: data.topRatedMovies.length,
         );
       } else {
-        return Center(key: const Key('error_message'), child: Text(data.message));
+        return Center(
+            key: const Key('error_message'), child: Text(data.message));
       }
     },
   );

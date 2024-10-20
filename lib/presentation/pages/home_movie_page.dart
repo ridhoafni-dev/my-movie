@@ -1,25 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/presentation/pages/about_page.dart';
-import 'package:my_movie/presentation/pages/movie_detail_page.dart';
+import 'package:model/movie/movie.dart';
+import 'package:model/tv/tv.dart';
 import 'package:my_movie/presentation/pages/now_paying_tv_page.dart';
 import 'package:my_movie/presentation/pages/popular_movie_page.dart';
-import 'package:my_movie/presentation/pages/search_page.dart';
 import 'package:my_movie/presentation/pages/top_rated_movie_page.dart';
 import 'package:my_movie/presentation/pages/tv_detail_page.dart';
 import 'package:my_movie/presentation/pages/watchlist_page.dart';
 import 'package:my_movie/presentation/providers/tv/tv_series_list_notifier.dart';
 import 'package:provider/provider.dart';
+import 'package:styles/text_styles.dart';
+import 'package:utils/utils/constants.dart';
+import 'package:utils/utils/routes.dart';
+import 'package:utils/utils/state_enum.dart';
 
-import '../../common/constans.dart';
 import '../providers/movie/movie_list_notifier.dart';
 
 class HomeMoviePage extends StatefulWidget {
-  static const ROUTE_NAME = "home";
-
   const HomeMoviePage({super.key});
 
   @override
@@ -79,7 +76,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
+                Navigator.pushNamed(context, ABOUT_ROUTE);
               },
             ),
           ],
@@ -90,7 +87,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, SEARCH_ROUTE);
             },
             icon: const Icon(Icons.search),
           )
@@ -267,7 +264,7 @@ class MovieList extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        MovieDetailPage.ROUTE_NAME,
+                        MOVIE_DETAIL_ROUTE,
                         arguments: {'id': movie.id},
                       );
                     },

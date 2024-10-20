@@ -1,13 +1,12 @@
+import 'package:domain/usecases/tv/get_tv_detail.dart';
+import 'package:domain/usecases/tv/get_tv_recommendations.dart';
+import 'package:domain/usecases/tv/get_tv_watchlist_status.dart';
+import 'package:domain/usecases/tv/remove_tv_watchlist.dart';
+import 'package:domain/usecases/tv/save_tv_watchlist.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/domain/usecases/tv/get_tv_detail.dart';
-import 'package:my_movie/domain/usecases/tv/get_tv_recommendations.dart';
-
-import '../../../domain/entity/tv/tv_detail.dart';
-import '../../../domain/usecases/tv/get_tv_watchlist_status.dart';
-import '../../../domain/usecases/tv/remove_tv_watchlist.dart';
-import '../../../domain/usecases/tv/save_tv_watchlist.dart';
+import 'package:model/tv/tv.dart';
+import 'package:model/tv/tv_detail.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class TvDetailNotifier extends ChangeNotifier {
 

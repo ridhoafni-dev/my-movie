@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/domain/usecases/tv/search_tv_series.dart';
+import '../../../../features/search/lib/domain/usecases/search_tv_series.dart';
 
 import '../../../helpers/test_helper.mocks.dart';
 

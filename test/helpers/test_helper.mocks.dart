@@ -7,24 +7,24 @@ import 'dart:async' as _i7;
 import 'dart:convert' as _i25;
 import 'dart:typed_data' as _i26;
 
+import 'package:core/utils/failure.dart' as _i8;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/http.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i15;
-import 'package:my_movie/common/failure.dart' as _i8;
 import 'package:my_movie/data/datasources/db/database_helper.dart' as _i23;
 import 'package:my_movie/data/datasources/movie_local_data_source.dart' as _i13;
 import 'package:my_movie/data/datasources/movie_remote_data_source.dart'
     as _i11;
 import 'package:my_movie/data/datasources/tv_local_data_source.dart' as _i21;
 import 'package:my_movie/data/datasources/tv_remote_data_source.dart' as _i19;
-import 'package:my_movie/data/model/movie/movie_detail_response.dart' as _i3;
+import '../../features/search/lib/data/model/movie_detail_response.dart' as _i3;
 import 'package:my_movie/data/model/movie/movie_model.dart' as _i12;
 import 'package:my_movie/data/model/movie/movie_table.dart' as _i14;
 import 'package:my_movie/data/model/tv/tv_detail_response.dart' as _i4;
 import 'package:my_movie/data/model/tv/tv_model.dart' as _i20;
-import 'package:my_movie/data/model/tv/tv_table.dart' as _i22;
-import 'package:my_movie/domain/entity/movie/movie.dart' as _i9;
+import '../../core/data/lib/entities/tv_table.dart' as _i22;
+import '../../features/search/lib/domain/entities/movie.dart' as _i9;
 import 'package:my_movie/domain/entity/movie/movie_detail.dart' as _i10;
 import 'package:my_movie/domain/entity/tv/tv.dart' as _i17;
 import 'package:my_movie/domain/entity/tv/tv_detail.dart' as _i18;

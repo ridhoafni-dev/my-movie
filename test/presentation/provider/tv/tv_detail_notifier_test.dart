@@ -1,9 +1,9 @@
+import 'package:core/utils/failure.dart';
+import 'package:core/utils/state_enum.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_movie/common/failure.dart';
-import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/tv/tv.dart';
 import 'package:my_movie/domain/usecases/tv/get_tv_detail.dart';
 import 'package:my_movie/domain/usecases/tv/get_tv_recommendations.dart';

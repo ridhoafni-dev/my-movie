@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_movie/data/model/movie/movie_model.dart';
-import 'package:my_movie/data/model/movie/movie_response.dart';
 import 'package:my_movie/data/model/tv/tv_model.dart';
 import 'package:my_movie/data/model/tv/tv_response.dart';
 

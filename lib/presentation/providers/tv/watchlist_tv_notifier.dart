@@ -1,7 +1,7 @@
+import 'package:domain/usecases/tv/get_watchlist_tv_series.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/domain/usecases/tv/get_watchlist_tv_series.dart';
+import 'package:model/tv/tv.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class WatchlistTvNotifier extends ChangeNotifier {
   late final GetWatchlistTvSeries useCaseGetWatchlistTvSeries;

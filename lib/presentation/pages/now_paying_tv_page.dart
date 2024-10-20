@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/presentation/providers/tv/tv_series_list_notifier.dart';
 import 'package:provider/provider.dart';
+import 'package:utils/utils/state_enum.dart';
 
 import '../widgets/tv_card.dart';
 

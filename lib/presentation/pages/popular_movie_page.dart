@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/presentation/providers/movie/popular_movies_notifier.dart';
 import 'package:my_movie/presentation/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class PopularMoviePage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-movie';

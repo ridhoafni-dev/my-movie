@@ -38,15 +38,32 @@ dependencies:
   json_annotation: ^4.9.0
   freezed_annotation: ^2.4.4
   http: ^1.2.2
+  get_it: ^8.0.0
   dartz: ^0.10.1
-  equatable: ^2.0.5
-  google_fonts: ^6.2.1
   flutter_rating_bar: ^4.0.1
   cached_network_image: ^3.4.1
-  get_it: ^8.0.0
   sqflite: ^2.3.3+1
   path_provider: ^2.1.4
   provider: ^6.1.2
+
+  utils:
+    path: core/utils
+  domain:
+    path: core/domain
+  data:
+    path: core/data
+  styles:
+    path: core/styles
+  model:
+    path: model
+  response:
+    path: response
+  entity:
+    path: entity
+  about:
+    path: features/about
+  search:
+    path: features/search
 
 dev_dependencies:
   flutter_test:

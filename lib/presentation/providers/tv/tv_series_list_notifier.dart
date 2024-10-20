@@ -1,7 +1,7 @@
+import 'package:domain/usecases/tv/get_now_playing_tv_series.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/domain/usecases/tv/get_now_playing_tv_series.dart';
+import 'package:model/tv/tv.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class TvSeriesListNotifier extends ChangeNotifier {
   late var _nowPlayingTvSeries = <Tv>[];

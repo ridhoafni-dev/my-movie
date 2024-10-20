@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:my_movie/common/constans.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/genre.dart';
-import 'package:my_movie/domain/entity/tv/tv.dart';
-import 'package:my_movie/domain/entity/tv/tv_detail.dart';
+import 'package:model/genre/genre.dart';
+import 'package:model/tv/tv.dart';
+import 'package:model/tv/tv_detail.dart';
 import 'package:my_movie/presentation/providers/tv/tv_detail_notifier.dart';
 import 'package:provider/provider.dart';
+import 'package:styles/colors.dart';
+import 'package:styles/text_styles.dart';
+import 'package:utils/utils/constants.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class TvDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/tv-detail';

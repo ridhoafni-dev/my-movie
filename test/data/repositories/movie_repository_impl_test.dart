@@ -1,15 +1,15 @@
 import 'dart:io';
 
+import 'package:core/utils/exception.dart';
+import 'package:core/utils/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_movie/common/exception.dart';
-import 'package:my_movie/common/failure.dart';
-import 'package:my_movie/data/model/genre_model.dart';
-import 'package:my_movie/data/model/movie/movie_detail_response.dart';
+import 'package:my_movie/data/model/genre/genre_model.dart';
+import '../../../features/search/lib/data/model/movie_detail_response.dart';
 import 'package:my_movie/data/model/movie/movie_model.dart';
 import 'package:my_movie/data/repositories/movie_repository_impl.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
+import '../../../features/search/lib/domain/entities/movie.dart';
 
 import '../../dummy_data/dummy_object.dart';
 import '../../helpers/test_helper.mocks.dart';
@@ -63,54 +63,6 @@ void main() {
 
   final tMovieModelList = <MovieModel>[tMovieModel];
   final tMovieList = <Movie>[tMovie];
-
-  // group("now playing movies", () {
-  //   test("should return data when call to remote data source is success",
-  //       () async {
-  //     // arrange
-  //     when(mockMovieRemoteDataSource.getNowPlayingMovies())
-  //         .thenAnswer((_) async => tMovieModelList);
-  //
-  //     // act
-  //     final result = await movieRepositoryImpl.getNowPlayingTvSeries();
-  //
-  //     // assert
-  //     verify(mockMovieRemoteDataSource.getNowPlayingMovies());
-  //     final resultList = result.getOrElse(() => []);
-  //     expect(resultList, tMovieList);
-  //   });
-  //
-  //   test(
-  //       "should return server failure when call to remote data source is unsuccessful",
-  //       () async {
-  //     // arrange
-  //     when(mockMovieRemoteDataSource.getNowPlayingMovies())
-  //         .thenThrow(const ServerException(message: ''));
-  //
-  //     // act
-  //     final result = await movieRepositoryImpl.getNowPlayingTvSeries();
-  //
-  //     // assert
-  //     verify(mockMovieRemoteDataSource.getNowPlayingMovies());
-  //     expect(result, equals(const Left(ServerFailure(''))));
-  //   });
-  //
-  //   test(
-  //       "should return connection failure when device is not connected to internet",
-  //       () async {
-  //     // arrange
-  //     when(mockMovieRemoteDataSource.getNowPlayingMovies()).thenThrow(
-  //         const SocketException("Failed to connect to the internet"));
-  //
-  //     // act
-  //     final result = await movieRepositoryImpl.getNowPlayingTvSeries();
-  //
-  //     // assert
-  //     verify(mockMovieRemoteDataSource.getNowPlayingMovies());
-  //     expect(result,
-  //         const Left(ConnectionFailure('Failed to connect to the network')));
-  //   });
-  // });
 
   group('Popular Movies', () {
     test('should return movie list when call to data source is success',

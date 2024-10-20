@@ -1,12 +1,12 @@
+import 'package:core/utils/failure.dart';
+import 'package:core/utils/state_enum.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_movie/common/failure.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/domain/usecases/movie/search_movies.dart';
-import 'package:my_movie/presentation/providers/movie/movie_search_notifier.dart';
+import '../../../../features/search/lib/domain/entities/movie.dart';
+import '../../../../features/search/lib/domain/usecases/search_movies.dart';
+import '../../../../features/search/lib/presentation/providers/movie_search_notifier.dart';
 
 import 'movie_search_notifier_test.mocks.dart';
 

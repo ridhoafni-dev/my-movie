@@ -6,10 +6,10 @@
 import 'dart:async' as _i12;
 import 'dart:ui' as _i13;
 
+import 'package:core/utils/state_enum.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i11;
-import 'package:my_movie/common/state_enum.dart' as _i9;
-import 'package:my_movie/domain/entity/movie/movie.dart' as _i10;
+import '../../../../features/search/lib/domain/entities/movie.dart' as _i10;
 import 'package:my_movie/domain/entity/movie/movie_detail.dart' as _i7;
 import 'package:my_movie/domain/usecases/movie/get_movie_detail.dart' as _i2;
 import 'package:my_movie/domain/usecases/movie/get_movie_recommendations.dart'

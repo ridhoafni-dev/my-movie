@@ -1,9 +1,9 @@
 
+import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_movie/common/state_enum.dart';
 import 'package:my_movie/domain/entity/tv/tv.dart';
 import 'package:my_movie/presentation/pages/now_paying_tv_page.dart';
 import 'package:my_movie/presentation/providers/tv/tv_series_list_notifier.dart';

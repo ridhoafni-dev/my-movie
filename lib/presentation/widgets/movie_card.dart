@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/presentation/pages/movie_detail_page.dart';
-
-import '../../common/constans.dart';
+import 'package:model/movie/movie.dart';
+import 'package:utils/core.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
@@ -16,7 +14,7 @@ class MovieCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, MovieDetailPage.ROUTE_NAME,
+          Navigator.pushNamed(context, MOVIE_DETAIL_ROUTE,
               arguments: {'id': movie.id});
         },
         child: Stack(

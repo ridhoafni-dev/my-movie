@@ -1,13 +1,10 @@
 import 'dart:convert';
 
+import 'package:core/utils/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
-import 'package:my_movie/common/exception.dart';
-import 'package:my_movie/data/datasources/movie_remote_data_source.dart';
 import 'package:my_movie/data/datasources/tv_remote_data_source.dart';
-import 'package:my_movie/data/model/movie/movie_detail_response.dart';
-import 'package:my_movie/data/model/movie/movie_response.dart';
 import 'package:my_movie/data/model/tv/tv_detail_response.dart';
 import 'package:my_movie/data/model/tv/tv_response.dart';
 
@@ -28,10 +25,8 @@ void main() {
   });
 
   group('get now playing tv series', () {
-    final dummyTvList = TvResponse
-        .fromJson(
-        json.decode(readJson('dummy_data/now_playing.json'))
-    )
+    final dummyTvList = TvResponse.fromJson(
+            json.decode(readJson('dummy_data/now_playing.json')))
         .tvList;
 
     test('should return list of tv when response code is 200 ', () async {
@@ -47,33 +42,32 @@ void main() {
       expect(result, equals(dummyTvList));
     });
 
-      test("should throw ServerException when response code isn't 200", () async {
-        //arrange
-        when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/airing_today'), headers: {
-          "Accept": "application/json",
-          "Authorization": "Bearer $ACCESS_TOKEN",
-        })).thenThrow((_) async => http.Response('Not Found', 404));
+    test("should throw ServerException when response code isn't 200", () async {
+      //arrange
+      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/airing_today'), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $ACCESS_TOKEN",
+      })).thenThrow((_) async => http.Response('Not Found', 404));
 
-        //act
-        final call = dataSourceImpl.getNowPlayingTvSeries();
+      //act
+      final call = dataSourceImpl.getNowPlayingTvSeries();
 
-        //assert
-        expect(() => call, throwsA(isA<ServerException>()));
-      });
+      //assert
+      expect(() => call, throwsA(isA<ServerException>()));
     });
+  });
 
   group('get recommendation tv series', () {
-    final dummyTvList = TvResponse
-        .fromJson(
-        json.decode(readJson('dummy_data/tv_recommendations.json'))
-    )
+    final dummyTvList = TvResponse.fromJson(
+            json.decode(readJson('dummy_data/tv_recommendations.json')))
         .tvList;
 
     const tId = 1;
 
     test('should return list of tv when response code is 200 ', () async {
       // assert
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/$tId/recommendations'), headers: {
+      when(mockHttpClient
+          .get(Uri.parse('$BASE_URL/tv/$tId/recommendations'), headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $ACCESS_TOKEN",
       })).thenAnswer((_) async =>
@@ -84,9 +78,11 @@ void main() {
       expect(result, equals(dummyTvList));
     });
 
-    test('should throw Server Exception when the response code is 404 or other', () async {
+    test('should throw Server Exception when the response code is 404 or other',
+        () async {
       //arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/$tId/recommendations'), headers: {
+      when(mockHttpClient
+          .get(Uri.parse('$BASE_URL/tv/$tId/recommendations'), headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $ACCESS_TOKEN",
       })).thenThrow((_) async => http.Response('Not Found', 404));
@@ -98,7 +94,7 @@ void main() {
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });
-  
+
   group('get tv detail', () {
     const tId = 1;
     final tTvDetail = TvDetailResponse.fromJson(
@@ -109,9 +105,8 @@ void main() {
       when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/$tId'), headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $ACCESS_TOKEN",
-      }))
-          .thenAnswer((_) async =>
-              http.Response(readJson('dummy_data/tv_detail.json'), 200));
+      })).thenAnswer((_) async =>
+          http.Response(readJson('dummy_data/tv_detail.json'), 200));
       // act
       final result = await dataSourceImpl.getTvDetail(tId);
       // assert
@@ -122,11 +117,10 @@ void main() {
         () async {
       // arrange
       // act
-          when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/$tId'), headers: {
-            "Accept": "application/json",
-            "Authorization": "Bearer $ACCESS_TOKEN",
-          }))
-          .thenAnswer((_) async => http.Response('Not Found', 404));
+      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/$tId'), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $ACCESS_TOKEN",
+      })).thenAnswer((_) async => http.Response('Not Found', 404));
       final call = dataSourceImpl.getTvDetail(tId);
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
@@ -143,12 +137,11 @@ void main() {
     test('should return list of tv series when response code is 200', () async {
       // assert
       when(mockHttpClient
-              .get(Uri.parse('$BASE_URL/search/tv?&query=$tQuery'), headers: {
+          .get(Uri.parse('$BASE_URL/search/tv?&query=$tQuery'), headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $ACCESS_TOKEN",
-      }))
-          .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/search_spiderman_tv.json'), 200));
+      })).thenAnswer((_) async =>
+          http.Response(readJson('dummy_data/search_spiderman_tv.json'), 200));
 
       final result = await dataSourceImpl.searchTvSeries(tQuery);
       // assert

@@ -1,13 +1,12 @@
+import 'package:domain/usecases/movie/get_movie_detail.dart';
+import 'package:domain/usecases/movie/get_movie_recommendations.dart';
+import 'package:domain/usecases/movie/get_movie_watchlist_status.dart';
+import 'package:domain/usecases/movie/remove_movie_watchlist.dart';
+import 'package:domain/usecases/movie/save_movie_watchlist.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/domain/usecases/movie/get_movie_detail.dart';
-import 'package:my_movie/domain/usecases/movie/get_movie_watchlist_status.dart';
-import 'package:my_movie/domain/usecases/movie/remove_movie_watchlist.dart';
-import 'package:my_movie/domain/usecases/movie/save_movie_watchlist.dart';
-
-import '../../../domain/entity/movie/movie_detail.dart';
-import '../../../domain/usecases/movie/get_movie_recommendations.dart';
+import 'package:model/movie/movie.dart';
+import 'package:model/movie/movie_detail.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class MovieDetailNotifier extends ChangeNotifier {
    final GetMovieDetail useCaseGetMovieDetail;

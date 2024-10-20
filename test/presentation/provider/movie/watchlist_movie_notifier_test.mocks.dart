@@ -5,10 +5,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
+import 'package:core/utils/failure.dart' as _i7;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:my_movie/common/failure.dart' as _i7;
-import 'package:my_movie/domain/entity/movie/movie.dart' as _i8;
+import '../../../../features/search/lib/domain/entities/movie.dart' as _i8;
 import 'package:my_movie/domain/entity/tv/tv.dart' as _i10;
 import 'package:my_movie/domain/repositories/movie_repository.dart' as _i2;
 import 'package:my_movie/domain/repositories/tv_repository.dart' as _i4;

@@ -1,7 +1,7 @@
+import 'package:domain/usecases/movie/get_popular_movies.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
-import 'package:my_movie/domain/usecases/movie/get_popular_movies.dart';
+import 'package:model/movie/movie.dart';
+import 'package:utils/utils/state_enum.dart';
 
 class PopularMoviesNotifier extends ChangeNotifier {
   late final GetPopularMovies useCaseGetPopularMovies;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/common/utils.dart';
 import 'package:my_movie/presentation/providers/movie/watchlist_movie_notifier.dart';
 import 'package:my_movie/presentation/providers/tv/watchlist_tv_notifier.dart';
 import 'package:my_movie/presentation/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
+import 'package:utils/utils/state_enum.dart';
+import 'package:utils/utils/utils.dart';
 
 import '../widgets/tv_card.dart';
 
@@ -17,18 +17,16 @@ class WatchlistPage extends StatefulWidget {
   State<StatefulWidget> createState() => _WatchlistPageState();
 }
 
-class _WatchlistPageState extends State<WatchlistPage>
-    with RouteAware {
+class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () {
-          Provider.of<WatchlistMovieNotifier>(context, listen: false)
-            .fetchWatchlistMovies();
-          Provider.of<WatchlistTvNotifier>(context, listen: false)
-            .fetchWatchlistTvSeries();
-        });
+    Future.microtask(() {
+      Provider.of<WatchlistMovieNotifier>(context, listen: false)
+          .fetchWatchlistMovies();
+      Provider.of<WatchlistTvNotifier>(context, listen: false)
+          .fetchWatchlistTvSeries();
+    });
   }
 
   @override
@@ -65,8 +63,7 @@ class _WatchlistPageState extends State<WatchlistPage>
                 return WatchlistContent(
                   state: movieData.watchlistState,
                   data: movieData.watchlistMovies,
-                  itemBuilder: (item) =>
-                      MovieCard(movie: item),
+                  itemBuilder: (item) => MovieCard(movie: item),
                 );
               },
             ),
@@ -76,11 +73,9 @@ class _WatchlistPageState extends State<WatchlistPage>
             child: Consumer<WatchlistTvNotifier>(
               builder: (context, tvData, child) {
                 return WatchlistContent(
-                  state: tvData.watchlistTvState,
-                  data: tvData.watchlistTvSeries,
-                  itemBuilder: (item) =>
-                      TvCard(tv: item)
-                );
+                    state: tvData.watchlistTvState,
+                    data: tvData.watchlistTvSeries,
+                    itemBuilder: (item) => TvCard(tv: item));
               },
             ),
           ),

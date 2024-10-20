@@ -1,17 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:my_movie/common/constans.dart';
-import 'package:my_movie/common/state_enum.dart';
-import 'package:my_movie/domain/entity/genre.dart';
-import 'package:my_movie/domain/entity/movie/movie.dart';
+import 'package:model/genre/genre.dart';
+import 'package:model/movie/movie.dart';
+import 'package:model/movie/movie_detail.dart';
 import 'package:my_movie/presentation/providers/movie/movie_detail_notifier.dart';
 import 'package:provider/provider.dart';
-
-import '../../domain/entity/movie/movie_detail.dart';
+import 'package:styles/styles.dart';
+import 'package:utils/core.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/movie-detail';
 
   final int id;
 
@@ -180,7 +178,7 @@ class DetailContent extends StatelessWidget {
                                           onTap: () {
                                             Navigator.pushReplacementNamed(
                                                 context,
-                                                MovieDetailPage.ROUTE_NAME,
+                                                MOVIE_DETAIL_ROUTE,
                                                 arguments: movie.id);
                                           },
                                           child: ClipRRect(

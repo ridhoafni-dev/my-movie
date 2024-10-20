@@ -1,0 +1,19 @@
+library domain;
+
+export 'repositories/movie_repository.dart';
+export 'repositories/tv_repository.dart';
+export 'usecases/movie/get_movie_detail.dart';
+export 'usecases/movie/get_movie_recommendations.dart';
+export 'usecases/movie/get_movie_watchlist_status.dart';
+export 'usecases/movie/get_popular_movies.dart';
+export 'usecases/movie/get_top_rated_movies.dart';
+export 'usecases/movie/get_watchlist_movies.dart';
+export 'usecases/movie/remove_movie_watchlist.dart';
+export 'usecases/movie/save_movie_watchlist.dart';
+export 'usecases/tv/get_now_playing_tv_series.dart';
+export 'usecases/tv/get_tv_detail.dart';
+export 'usecases/tv/get_tv_recommendations.dart';
+export 'usecases/tv/get_tv_watchlist_status.dart';
+export 'usecases/tv/get_watchlist_tv_series.dart';
+export 'usecases/tv/remove_tv_watchlist.dart';
+export 'usecases/tv/save_tv_watchlist.dart';

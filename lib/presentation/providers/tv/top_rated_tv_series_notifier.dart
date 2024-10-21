@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../common/state_enum.dart';
 import '../../../domain/entity/tv/tv.dart';
-import '../../../domain/usecases/tv/get_top_rated_series.dart';
+import '../../../domain/usecases/tv/get_top_rated_tv_series.dart';
 
 class TopRatedTvSeriesNotifier extends ChangeNotifier {
   late final GetTopRatedTvSeries useCaseGetTopRatedTvSeries;

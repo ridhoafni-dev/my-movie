@@ -13,7 +13,7 @@ import 'package:my_movie/domain/repositories/tv_repository.dart' as _i2;
 import 'package:my_movie/domain/usecases/tv/get_now_playing_tv_series.dart'
     as _i4;
 import 'package:my_movie/domain/usecases/tv/get_popular_tv_series.dart' as _i8;
-import 'package:my_movie/domain/usecases/tv/get_top_rated_series.dart' as _i9;
+import 'package:my_movie/domain/usecases/tv/get_top_rated_tv_series.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

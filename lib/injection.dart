@@ -17,7 +17,7 @@ import 'package:my_movie/domain/usecases/movie/save_movie_watchlist.dart';
 import 'package:my_movie/domain/usecases/movie/search_movies.dart';
 import 'package:my_movie/domain/usecases/tv/get_now_playing_tv_series.dart';
 import 'package:my_movie/domain/usecases/tv/get_popular_tv_series.dart';
-import 'package:my_movie/domain/usecases/tv/get_top_rated_series.dart';
+import 'package:my_movie/domain/usecases/tv/get_top_rated_tv_series.dart';
 import 'package:my_movie/domain/usecases/tv/get_tv_detail.dart';
 import 'package:my_movie/domain/usecases/tv/get_tv_recommendations.dart';
 import 'package:my_movie/domain/usecases/tv/get_tv_watchlist_status.dart';

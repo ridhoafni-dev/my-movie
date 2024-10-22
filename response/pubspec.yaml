@@ -7,6 +7,8 @@ environment:
   sdk: ^3.5.3
   flutter: ">=1.17.0"
 
+publish_to: none
+
 dependencies:
   flutter:
     sdk: flutter
@@ -15,6 +17,10 @@ dependencies:
 
   model:
     path: ../model
+  utils:
+    path: ../core/utils
+  dummy_data:
+    path: ../dummy_data
 
 dev_dependencies:
   flutter_test:

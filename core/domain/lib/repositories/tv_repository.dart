@@ -5,6 +5,8 @@ import 'package:utils/utils/failure.dart';
 
 abstract class TvRepository {
   Future<Either<Failure, List<Tv>>> getNowPlayingTvSeries();
+  Future<Either<Failure, List<Tv>>> getPopularTvSeries();
+  Future<Either<Failure, List<Tv>>> getTopRatedTvSeries();
   Future<Either<Failure, TvDetail>> getTvDetail(int id);
   Future<Either<Failure, List<Tv>>> getTvRecommendations(int id);
   Future<Either<Failure, List<Tv>>> searchTvSeries(String query);

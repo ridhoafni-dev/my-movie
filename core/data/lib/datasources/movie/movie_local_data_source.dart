@@ -3,6 +3,7 @@ import 'package:utils/utils/exception.dart';
 
 import '../db/database_helper.dart';
 
+
 abstract class MovieLocalDataSource {
   Future<String> insertWatchlist(MovieTable movie);
   Future<String> removeWatchlist(MovieTable movie);
@@ -51,3 +52,4 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
     }
   }
 }
+

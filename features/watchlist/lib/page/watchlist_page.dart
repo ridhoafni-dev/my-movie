@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/presentation/providers/movie/watchlist_movie_notifier.dart';
-import 'package:my_movie/presentation/providers/tv/watchlist_tv_notifier.dart';
-import 'package:my_movie/presentation/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
 import 'package:utils/utils/state_enum.dart';
 import 'package:utils/utils/utils.dart';
+import 'package:widget/movie_card.dart';
+import 'package:widget/tv_card.dart';
 
-import '../widgets/tv_card.dart';
+import '../provider/watchlist_movie_notifier.dart';
+import '../provider/watchlist_tv_notifier.dart';
 
 class WatchlistPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist';
-
   const WatchlistPage({super.key});
 
   @override

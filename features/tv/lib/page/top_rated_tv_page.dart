@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/presentation/providers/movie/top_rated_movies_notifier.dart';
-import 'package:my_movie/presentation/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
 import 'package:utils/utils/state_enum.dart';
+import 'package:widget/tv_card.dart';
 
-class TopRatedMoviePage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-movie';
+import '../provider/top_rated_tv_series_notifier.dart';
 
-  const TopRatedMoviePage({super.key});
+class TopRatedTvPage extends StatefulWidget {
+  const TopRatedTvPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _TopRatedMoviePageState();
+  State<StatefulWidget> createState() => _TopRatedTvPageState();
 }
 
-class _TopRatedMoviePageState extends State<TopRatedMoviePage> {
+class _TopRatedTvPageState extends State<TopRatedTvPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+        Provider.of<TopRatedTvSeriesNotifier>(context, listen: false)
+            .fetchTopRatedTvSeries());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Top Rated Movies')),
+      appBar: AppBar(title: const Text('Top Rated Tv Series')),
       body: Padding(padding: const EdgeInsets.all(8.0), child: _buildList()),
     );
   }
 }
 
 Widget _buildList() {
-  return Consumer<TopRatedMoviesNotifier>(
+  return Consumer<TopRatedTvSeriesNotifier>(
     builder: (context, data, child) {
       if (data.state == RequestState.Loading) {
         return const Center(
@@ -41,10 +40,10 @@ Widget _buildList() {
       } else if (data.state == RequestState.Loaded) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final movie = data.topRatedMovies[index];
-            return MovieCard(movie: movie);
+            final tv = data.topRatedTvSeries[index];
+            return TvCard(tv: tv);
           },
-          itemCount: data.topRatedMovies.length,
+          itemCount: data.topRatedTvSeries.length,
         );
       } else {
         return Center(

@@ -17,7 +17,7 @@ class TvRepositoryImpl implements TvRepository {
 
   const TvRepositoryImpl(
       {required this.tvRemoteDataSource,
-      required this.tvLocalDataSource});
+        required this.tvLocalDataSource});
 
   @override
   Future<Either<Failure, TvDetail>> getTvDetail(int id) async {
@@ -47,6 +47,30 @@ class TvRepositoryImpl implements TvRepository {
   Future<Either<Failure, List<Tv>>> getNowPlayingTvSeries() async {
     try {
       final result = await tvRemoteDataSource.getNowPlayingTvSeries();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Tv>>> getPopularTvSeries() async {
+    try {
+      final result = await tvRemoteDataSource.getPopularTvSeries();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Tv>>> getTopRatedTvSeries() async {
+    try {
+      final result = await tvRemoteDataSource.getTopRatedTvSeries();
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));

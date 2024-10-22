@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_movie/data/model/movie/movie_model.dart';
-import 'package:my_movie/data/model/movie/movie_response.dart';
-
-import '../../utils/json_reader.dart';
+import 'package:response/movie/movie_model.dart';
+import 'package:response/movie/movie_response.dart';
+import 'package:utils/utils/json_reader.dart';
 
 void main() {
   const tMovieModel = MovieModel(

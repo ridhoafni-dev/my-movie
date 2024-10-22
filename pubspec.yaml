@@ -64,6 +64,12 @@ dependencies:
     path: features/about
   search:
     path: features/search
+  movie:
+    path: features/movie
+  tv:
+    path: features/tv
+  watchlist:
+    path: features/watchlist
 
 dev_dependencies:
   flutter_test:

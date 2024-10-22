@@ -7,7 +7,10 @@ import 'package:response/movie/movie_model.dart';
 import 'package:response/movie/movie_response.dart';
 import 'package:utils/utils/exception.dart';
 
+
 abstract class MovieRemoteDataSource {
+  Future<List<MovieModel>> getNowPlayingMovies();
+
   Future<List<MovieModel>> getPopularMovies();
 
   Future<List<MovieModel>> getTopRatedMovies();
@@ -31,10 +34,28 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   MovieRemoteDataSourceImpl({required this.client});
 
   @override
+  Future<List<MovieModel>> getNowPlayingMovies() async {
+    try {
+      final response =
+      await client.get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'));
+      if (response.statusCode == 200) {
+        return MovieResponse.fromJson(json.decode(response.body)).movieList;
+      } else {
+        throw ServerException(message: response.body);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error--> $e");
+      }
+      throw const ServerException(message: "Failed to connect to server");
+    }
+  }
+
+  @override
   Future<MovieDetailResponse> getMovieDetail(int id) async {
     try {
       final response =
-          await client.get(Uri.parse('$BASE_URL/movie/$id?$API_KEY'));
+      await client.get(Uri.parse('$BASE_URL/movie/$id?$API_KEY'));
 
       if (response.statusCode == 200) {
         return MovieDetailResponse.fromJson(json.decode(response.body));
@@ -74,7 +95,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getPopularMovies() async {
     try {
       final response =
-          await client.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY'));
+      await client.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY'));
       if (response.statusCode == 200) {
         return MovieResponse.fromJson(json.decode(response.body)).movieList;
       } else {
@@ -92,7 +113,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getTopRatedMovies() async {
     try {
       final response =
-          await client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'));
+      await client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY'));
 
       if (response.statusCode == 200) {
         return MovieResponse.fromJson(json.decode(response.body)).movieList;
@@ -128,3 +149,4 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     }
   }
 }
+

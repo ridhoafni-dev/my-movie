@@ -1,39 +1,37 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_movie/presentation/providers/movie/popular_movies_notifier.dart';
-import 'package:my_movie/presentation/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
 import 'package:utils/utils/state_enum.dart';
+import 'package:widget/movie_card.dart';
 
-class PopularMoviePage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-movie';
+import '../provider/now_playing_movies_notifier.dart';
 
-  const PopularMoviePage({super.key});
+class NowPlayingMoviesPage extends StatefulWidget {
+  const NowPlayingMoviesPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _PopularMoviePageState();
+  State<StatefulWidget> createState() => _NowPlayingMoviesPageState();
 }
 
-class _PopularMoviePageState extends State<PopularMoviePage> {
+class _NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<PopularMoviesNotifier>(context, listen: false)
-            .fetchPopularMovies());
+        Provider.of<NowPlayingMoviesNotifier>(listen: false, context)
+            .fetchNowPlayingMovies());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Popular Movies')),
+      appBar: AppBar(title: const Text('Now Playing Movies')),
       body: Padding(padding: const EdgeInsets.all(8.0), child: _buildList()),
     );
   }
 }
 
 Widget _buildList() {
-  return Consumer<PopularMoviesNotifier>(
+  return Consumer<NowPlayingMoviesNotifier>(
     builder: (context, data, child) {
       if (data.state == RequestState.Loading) {
         return const Center(
@@ -42,14 +40,14 @@ Widget _buildList() {
       } else if (data.state == RequestState.Loaded) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final movie = data.popularMovies[index];
+            final movie = data.nowPlayingMovies[index];
             return MovieCard(movie: movie);
           },
-          itemCount: data.popularMovies.length,
+          itemCount: data.nowPlayingMovies.length,
         );
       } else {
         return Center(
-            key: const Key('error_message'),child: Text(data.message));
+            key: const Key('error_message'), child: Text(data.message));
       }
     },
   );

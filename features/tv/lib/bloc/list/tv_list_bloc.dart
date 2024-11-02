@@ -14,7 +14,7 @@ class TvListBloc extends Bloc<TvListEvent, TvListState> {
     required GetNowPlayingTvSeries getNowPlayingTvSeries,
     required GetPopularTvSeries getPopularTvSeries,
     required GetTopRatedTvSeries getTopRatedTvSeries,
-  })  : _getNowPlayingTvSeries = getNowPlayingTvSeries,
+  })  : _getNowPlayingTvSeries = getNowPlayingTvSeries ,
         _getPopularTvSeries = getPopularTvSeries,
         _getTopRatedTvSeries = getTopRatedTvSeries,
         super(TvListEmpty()) {

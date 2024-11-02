@@ -72,7 +72,7 @@ void main() {
   );
 
   blocTest<MovieDetailWatchlistBloc, MovieDetailWatchlistState>(
-    'Should emit [NotOnWatchlist] when get remove is success',
+    'Should emit [NotOnWatchlist] when get remove is success ',
     build: () {
       when(mockRemoveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => const Right('success'));

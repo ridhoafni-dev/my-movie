@@ -58,13 +58,13 @@ void main() {
     'Should emit [WatchlistError] when get add is failed',
     build: () {
       when(mockSaveWatchlist.execute(testMovieDetail))
-          .thenAnswer((_) async => const Left(DatabaseFailure('failure')));
+          .thenAnswer((_) async => const Left(DatabaseFailure('fail')));
       return movieDetailWatchlistBloc;
     },
-    act: (bloc) => bloc.add(const RemoveWatchlist(testMovieDetail)),
+    act: (bloc) => bloc.add(const AddToWatchlist(testMovieDetail)),
     expect: () => [
       UpdatingWatchlist(),
-      const WatchlistError('failure'),
+      const WatchlistError('fail'),
     ],
     verify: (bloc) {
       verify(mockSaveWatchlist.execute(testMovieDetail));

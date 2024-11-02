@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:model/tv/tv.dart';
-import 'package:tv/bloc/popular/tv_popular_state.dart';
 import 'package:tv/bloc/top_rated/tv_top_rated_bloc.dart';
 import 'package:tv/bloc/top_rated/tv_top_rated_event.dart';
 import 'package:tv/bloc/top_rated/tv_top_rated_state.dart';

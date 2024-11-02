@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:model/movie/movie.dart';
+import 'package:model/tv/tv.dart';
+import 'package:search/bloc/movie/movie_search_state.dart';
+import 'package:search/bloc/tv/tv_search_bloc.dart';
+import 'package:search/bloc/tv/tv_search_event.dart';
 import 'package:styles/text_styles.dart';
-import 'package:utils/utils/state_enum.dart';
 import 'package:widget/movie_card.dart';
 import 'package:widget/tv_card.dart';
 
-import '../providers/movie_search_notifier.dart';
-import '../providers/tv_search_notifier.dart';
+import '../bloc/movie/movie_search_bloc.dart';
+import '../bloc/movie/movie_search_event.dart';
+import '../bloc/tv/tv_search_state.dart';
 
 class SearchPage extends StatefulWidget {
-  static const ROUTE_NAME = '/search';
-
   const SearchPage({super.key});
 
   @override
@@ -21,8 +24,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<MovieSearchNotifier>(context, listen: false).resetState();
-    Provider.of<TvSearchNotifier>(context, listen: false).resetState();
+    BlocProvider.of<MovieSearchBloc>(context).add(ClearSearchMovie());
+    BlocProvider.of<TvSearchBloc>(context, listen: false).add(ClearSearchTv());
   }
 
   @override
@@ -38,106 +41,80 @@ class _SearchPageState extends State<SearchPage> {
           title: const Text('Search'),
         ),
         body: TabBarView(children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                TextField(
-                  onSubmitted: (query) {
-                    Provider.of<MovieSearchNotifier>(context, listen: false)
-                        .fetchMovieSearch(query);
-                  },
-                  decoration: const InputDecoration(
-                      hintText: 'Search title',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder()),
-                  textInputAction: TextInputAction.search,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "Search Result",
-                  style: kHeading6,
-                ),
-                Expanded(
-                  child: Consumer<MovieSearchNotifier>(
-                    builder: (context, movieData, child) {
-                      return SearchContent(
-                        state: movieData.state,
-                        data: movieData.searchResult,
-                        itemBuilder: (item) => MovieCard(movie: item),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                TextField(
-                  onSubmitted: (query) {
-                    Provider.of<TvSearchNotifier>(context, listen: false)
-                        .fetchTvSearch(query);
-                  },
-                  decoration: const InputDecoration(
-                      hintText: 'Search title',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder()),
-                  textInputAction: TextInputAction.search,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "Search Result",
-                  style: kHeading6,
-                ),
-                Expanded(
-                  child: Consumer<TvSearchNotifier>(
-                    builder: (context, tvData, child) {
-                      return SearchContent(
-                          state: tvData.state,
-                          data: tvData.searchResult,
-                          itemBuilder: (item) => TvCard(tv: item));
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          buildSearchTab(context, isMovie: true),
+          buildSearchTab(context, isMovie: false),
         ]),
       ),
     );
   }
 }
 
-class SearchContent extends StatelessWidget {
-  final RequestState state;
-  final List data;
-  final Widget Function(dynamic item) itemBuilder;
+Widget buildSearchTab(BuildContext context, {required bool isMovie}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          onSubmitted: (query) {
+            if (isMovie) {
+              BlocProvider.of<MovieSearchBloc>(context).add(SearchMovie(query));
+            } else {
+              BlocProvider.of<TvSearchBloc>(context)
+                  .add(SearchTvProgram(query));
+            }
+          },
+          decoration: const InputDecoration(
+              hintText: 'Search title',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder()),
+          textInputAction: TextInputAction.search,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          "Search Result",
+          style: kHeading6,
+        ),
+        isMovie ? Expanded(
+          child: BlocBuilder<MovieSearchBloc, MovieSearchState>(
+            builder: (context, state) {
+              return buildSearchContent(state, isMovie);
+            },
+          ),
+        ) :
+        Expanded(
+          child: BlocBuilder<TvSearchBloc, TvSearchState>(
+            builder: (context, state) {
+              return buildSearchContent(state, isMovie);
+            },
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-  const SearchContent(
-      {super.key,
-      required this.state,
-      required this.data,
-      required this.itemBuilder});
-
-  @override
-  Widget build(BuildContext context) {
-    if (state == RequestState.Loading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (state == RequestState.Loaded) {
-      return ListView.builder(
-        itemBuilder: (context, index) => itemBuilder(data[index]),
-        itemCount: data.length,
-      );
-    } else if (state == RequestState.Error) {
-      return Center(
-        key: const Key('error_message'),
-        child: Text(state.name),
-      );
-    } else {
-      return const Center();
-    }
+Widget buildSearchContent(dynamic state, bool isMovie) {
+  if (state is MovieSearchLoading || state is TvSearchLoading) {
+    return const Center(child: CircularProgressIndicator());
+  } else if (state is MovieSearchHasData || state is TvSearchHasData) {
+    final searchResult = isMovie
+        ? (state as MovieSearchHasData).searchResult
+        : (state as TvSearchHasData).searchResult;
+    return ListView.builder(
+        itemBuilder: (context, index) => isMovie
+            ? MovieCard(movie: searchResult[index] as Movie)
+            : TvCard(tv: searchResult[index] as Tv),
+        itemCount: searchResult.length);
+  } else if (state is MovieSearchError || state is TvSearchError) {
+    return Center(
+      key: const Key("error_message"),
+      child: CircularProgressIndicator(),
+    );
+  } else {
+    return Center(
+      key: const Key("empty_message"),
+      child: Text("Nothing Found"),
+    );
   }
 }

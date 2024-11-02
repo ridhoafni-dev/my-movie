@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:utils/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:model/movie/movie.dart';
+import 'package:model/tv/tv.dart';
 import 'package:utils/utils/utils.dart';
 import 'package:widget/movie_card.dart';
 import 'package:widget/tv_card.dart';
 
-import '../provider/watchlist_movie_notifier.dart';
-import '../provider/watchlist_tv_notifier.dart';
+import '../bloc/movie/movie_watchlist_bloc.dart';
+import '../bloc/movie/movie_watchlist_event.dart';
+import '../bloc/movie/movie_watchlist_state.dart';
+import '../bloc/tv/tv_watchlist_bloc.dart';
+import '../bloc/tv/tv_watchlist_event.dart';
+import '../bloc/tv/tv_watchlist_state.dart';
 
 class WatchlistPage extends StatefulWidget {
   const WatchlistPage({super.key});
@@ -20,10 +25,8 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<WatchlistMovieNotifier>(context, listen: false)
-          .fetchWatchlistMovies();
-      Provider.of<WatchlistTvNotifier>(context, listen: false)
-          .fetchWatchlistTvSeries();
+      BlocProvider.of<TvWatchlistBloc>(context).add(LoadWatchlistTvSeries());
+      BlocProvider.of<MovieWatchlistBloc>(context).add(LoadWatchlistMovies());
     });
   }
 
@@ -35,10 +38,8 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
-    Provider.of<WatchlistTvNotifier>(context, listen: false)
-        .fetchWatchlistTvSeries();
+    BlocProvider.of<TvWatchlistBloc>(context).add(LoadWatchlistTvSeries());
+    BlocProvider.of<MovieWatchlistBloc>(context).add(LoadWatchlistMovies());
   }
 
   @override
@@ -54,62 +55,61 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
           title: const Text("Watchlist"),
         ),
         body: TabBarView(children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Consumer<WatchlistMovieNotifier>(
-              builder: (context, movieData, child) {
-                return WatchlistContent(
-                  state: movieData.watchlistState,
-                  data: movieData.watchlistMovies,
-                  itemBuilder: (item) => MovieCard(movie: item),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Consumer<WatchlistTvNotifier>(
-              builder: (context, tvData, child) {
-                return WatchlistContent(
-                    state: tvData.watchlistTvState,
-                    data: tvData.watchlistTvSeries,
-                    itemBuilder: (item) => TvCard(tv: item));
-              },
-            ),
-          ),
+          buildSearchTab(context, isMovie: true),
+          buildSearchTab(context, isMovie: false),
         ]),
       ),
     );
   }
 }
 
-class WatchlistContent extends StatelessWidget {
-  final RequestState state;
-  final List data;
-  final Widget Function(dynamic item) itemBuilder;
+Widget buildSearchTab(BuildContext context, {required bool isMovie}) {
+  return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: isMovie
+          ? Column(
+              children: [
+                Expanded(
+                    child: BlocBuilder<MovieWatchlistBloc, MovieWatchlistState>(
+                  builder: (context, state) {
+                    return buildSearchContent(state, isMovie);
+                  },
+                )),
+              ],
+            )
+          : Column(
+              children: [
+                Expanded(child: BlocBuilder<TvWatchlistBloc, TvWatchlistState>(
+                  builder: (context, state) {
+                    return buildSearchContent(state, isMovie);
+                  },
+                )),
+              ],
+            ));
+}
 
-  const WatchlistContent(
-      {super.key,
-      required this.state,
-      required this.data,
-      required this.itemBuilder});
+Widget buildSearchContent(dynamic state, bool isMovie) {
+  if (state is MovieWatchlistLoading || state is TvWatchlistLoading) {
+    return const Center(child: CircularProgressIndicator());
+  } else if (state is MovieWatchlistHasData || state is TvWatchlistHasData) {
+    final watchlist = isMovie
+        ? (state as MovieWatchlistHasData).watchlist
+        : (state as TvWatchlistHasData).watchlist;
 
-  @override
-  Widget build(BuildContext context) {
-    if (state == RequestState.Loading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (state == RequestState.Loaded) {
-      return ListView.builder(
-        itemBuilder: (context, index) => itemBuilder(data[index]),
-        itemCount: data.length,
-      );
-    } else if (state == RequestState.Error) {
-      return Center(
-        key: const Key('error_message'),
-        child: Text(state.name),
-      );
-    } else {
-      return const Center();
-    }
+    return ListView.builder(
+        itemBuilder: (context, index) => isMovie
+            ? MovieCard(movie: watchlist[index] as Movie)
+            : TvCard(tv: watchlist[index] as Tv),
+        itemCount: watchlist.length);
+  } else if (state is MovieWatchlistError || state is TvWatchlistError) {
+    return Center(
+      key: const Key('error_message'),
+      child: Text(state.message),
+    );
+  } else {
+    return const Center(
+      key: Key('empty_message'),
+      child: Text("Data Not found"),
+    );
   }
 }

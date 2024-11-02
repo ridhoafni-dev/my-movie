@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:model/movie/movie.dart';
-import 'package:provider/provider.dart';
 import 'package:styles/text_styles.dart';
 import 'package:utils/utils.dart';
 
-import '../provider/movie_list_notifier.dart';
+import '../bloc/list/movie_list_bloc.dart';
+import '../bloc/list/movie_list_event.dart';
+import '../bloc/list/movie_list_state.dart';
 
 class HomeMoviePage extends StatefulWidget {
   const HomeMoviePage({super.key});
@@ -18,11 +20,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<MovieListNotifier>(context, listen: false)
-          ..fetchNowPlayingMovies()
-          ..fetchPopularMovies()
-          ..fetchTopRatedMovies());
+    BlocProvider.of<MovieListBloc>(context).add(FetchMovieList());
   }
 
   @override
@@ -114,40 +112,33 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 }
 
 Widget _buildMovieList(MovieType type) {
-  return Consumer<MovieListNotifier>(builder: (context, movieData, child) {
-    RequestState state;
-    List<Movie> movies = [];
-    switch (type) {
-      case MovieType.NowPlaying: // tv is now playing
-        state = movieData.nowPlayingMoviesState;
-        movies = movieData.nowPlayingMovies;
-        break;
-      case MovieType.Popular: // tv is popular
-        state = movieData.popularMoviesState;
-        movies = movieData.popularMovies;
-        break;
-      case MovieType.TopRated: //tv is top-rated
-        state = movieData.topRatedMoviesState;
-        movies = movieData.topRatedMovies;
-        break;
-      default:
-        state = RequestState.Empty;
-        movies = List.empty();
-        break;
-    }
-
-    if (state == RequestState.Loading) {
+  return BlocBuilder<MovieListBloc, MovieListState>(builder: (context, state) {
+    if (state is MovieListLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
-    } else if (state == RequestState.Loaded) {
+    }
+    else if (state is MovieListHasData) {
+      final movies = type == MovieType.NowPlaying
+          ? state.nowPlaying
+          : type == MovieType.Popular
+              ? state.popular
+              : state.topRated;
+
       return MovieList(movies);
-    } else {
+    }
+    else if (state is MovieListError) {
       return Center(
         key: const Key('error_message'),
-        child: Text(movieData.message),
+        child: Text(state.message),
       );
     }
+    else {
+      return const Center(
+        child: Text('Empty'),
+      );
+    }
+
   });
 }
 

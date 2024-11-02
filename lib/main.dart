@@ -1,41 +1,52 @@
 import 'package:about/about_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/bloc/detail/movie_detail_bloc.dart';
+import 'package:movie/bloc/detail/watchlist/movie_detail_watchlist_bloc.dart';
+import 'package:movie/bloc/list/movie_list_bloc.dart';
+import 'package:movie/bloc/now_playing/movie_now_playing_bloc.dart';
+import 'package:movie/bloc/popular/movie_popular_bloc.dart';
+import 'package:movie/bloc/top_rated/movie_top_rated_bloc.dart';
 import 'package:movie/page/home_movie_page.dart';
 import 'package:movie/page/movie_detail_page.dart';
 import 'package:movie/page/now_paying_movies_page.dart';
 import 'package:movie/page/popular_movie_page.dart';
 import 'package:movie/page/top_rated_movie_page.dart';
-import 'package:movie/provider/movie_detail_notifier.dart';
-import 'package:movie/provider/movie_list_notifier.dart';
-import 'package:movie/provider/movie_search_notifier.dart';
-import 'package:movie/provider/now_playing_movies_notifier.dart';
-import 'package:movie/provider/popular_movies_notifier.dart';
-import 'package:movie/provider/top_rated_movies_notifier.dart';
+import 'package:my_movie/http_ssl_pinning.dart';
 import 'package:provider/provider.dart';
+import 'package:search/bloc/movie/movie_search_bloc.dart';
+import 'package:search/bloc/tv/tv_search_bloc.dart';
 import 'package:search/pages/search_page.dart';
-import 'package:search/providers/tv_search_notifier.dart';
 import 'package:styles/colors.dart';
 import 'package:styles/text_styles.dart';
+import 'package:tv/bloc/detail/tv_detail_bloc.dart';
+import 'package:tv/bloc/detail/watchlist/tv_detail_watchlist_bloc.dart';
+import 'package:tv/bloc/list/tv_list_bloc.dart';
+import 'package:tv/bloc/now_playing/tv_now_playing_bloc.dart';
+import 'package:tv/bloc/popular/tv_popular_bloc.dart';
+import 'package:tv/bloc/top_rated/tv_top_rated_bloc.dart';
 import 'package:tv/page/now_paying_tv_page.dart';
 import 'package:tv/page/popular_tv_page.dart';
 import 'package:tv/page/top_rated_tv_page.dart';
 import 'package:tv/page/tv_detail_page.dart';
 import 'package:tv/page/tv_series_list_page.dart';
-import 'package:tv/provider/now_playing_tv_series_notifier.dart';
-import 'package:tv/provider/popular_tv_series_notifier.dart';
-import 'package:tv/provider/top_rated_tv_series_notifier.dart';
-import 'package:tv/provider/tv_detail_notifier.dart';
-import 'package:tv/provider/tv_series_list_notifier.dart';
 import 'package:utils/utils.dart';
+import 'package:watchlist/bloc/movie/movie_watchlist_bloc.dart';
+import 'package:watchlist/bloc/tv/tv_watchlist_bloc.dart';
 import 'package:watchlist/page/watchlist_page.dart';
-import 'package:watchlist/provider/watchlist_movie_notifier.dart';
-import 'package:watchlist/provider/watchlist_tv_notifier.dart';
 
+import 'firebase_options.dart';
 import 'injection.dart' as di;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await HttpSSLPinning.init();
   runApp(const MyApp());
 }
 
@@ -47,33 +58,51 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => di.locator<MovieListNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<MovieDetailNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<MovieSearchNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<NowPlayingMoviesNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<TopRatedMoviesNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<PopularMoviesNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<WatchlistMovieNotifier>()),
+        //region bloc
 
-        ChangeNotifierProvider(
-            create: (_) => di.locator<NowPlayingTvSeriesNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<PopularTvSeriesNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<TopRatedTvSeriesNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<TvSeriesListNotifier>()),
-        ChangeNotifierProvider(create: (_) => di.locator<TvDetailNotifier>()),
-        ChangeNotifierProvider(
-            create: (_) => di.locator<WatchlistTvNotifier>()),
-        ChangeNotifierProvider(create: (_) => di.locator<TvSearchNotifier>()),
-        //SearchNotifier>()),
+        BlocProvider<MovieListBloc>(
+          create: (context) => di.locator<MovieListBloc>(),
+        ),
+        BlocProvider<MovieDetailBloc>(
+          create: (context) => di.locator<MovieDetailBloc>(),
+        ),
+        BlocProvider<MovieDetailWatchlistBloc>(
+            create: (context) => di.locator<MovieDetailWatchlistBloc>()),
+
+        BlocProvider<MoviePopularBloc>(
+            create: (context) => di.locator<MoviePopularBloc>()),
+
+        BlocProvider<MovieTopRatedBloc>(
+            create: (context) => di.locator<MovieTopRatedBloc>()),
+
+        BlocProvider<MovieNowPlayingBloc>(
+            create: (context) => di.locator<MovieNowPlayingBloc>()),
+
+        BlocProvider<MovieSearchBloc>(
+            create: (context) => di.locator<MovieSearchBloc>()),
+
+        BlocProvider<TvSearchBloc>(
+            create: (context) => di.locator<TvSearchBloc>()),
+
+        BlocProvider<MovieWatchlistBloc>(
+            create: (context) => di.locator<MovieWatchlistBloc>()),
+
+        BlocProvider<TvWatchlistBloc>(
+            create: (context) => di.locator<TvWatchlistBloc>()),
+
+        BlocProvider<TvTopRatedBloc>(
+            create: (context) => di.locator<TvTopRatedBloc>()),
+        BlocProvider<TvPopularBloc>(
+            create: (context) => di.locator<TvPopularBloc>()),
+        BlocProvider<TvNowPlayingBloc>(
+            create: (context) => di.locator<TvNowPlayingBloc>()),
+        BlocProvider<TvListBloc>(create: (context) => di.locator<TvListBloc>()),
+        BlocProvider<TvDetailWatchlistBloc>(
+            create: (context) => di.locator<TvDetailWatchlistBloc>()),
+        BlocProvider<TvDetailBloc>(
+            create: (context) => di.locator<TvDetailBloc>()),
+
+        //endregion
       ],
       child: MaterialApp(
         title: 'Movie App',

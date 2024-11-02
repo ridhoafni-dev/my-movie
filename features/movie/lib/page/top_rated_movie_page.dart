@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:utils/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/bloc/top_rated/movie_top_rated_bloc.dart';
+import 'package:movie/bloc/top_rated/movie_top_rated_event.dart';
+import 'package:movie/bloc/top_rated/movie_top_rated_state.dart';
 import 'package:widget/movie_card.dart';
-
-import '../provider/top_rated_movies_notifier.dart';
 
 class TopRatedMoviePage extends StatefulWidget {
   const TopRatedMoviePage({super.key});
@@ -17,8 +17,7 @@ class _TopRatedMoviePageState extends State<TopRatedMoviePage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+        BlocProvider.of<MovieTopRatedBloc>(context).add(FetchTopRatedMovie()));
   }
 
   @override
@@ -31,23 +30,25 @@ class _TopRatedMoviePageState extends State<TopRatedMoviePage> {
 }
 
 Widget _buildList() {
-  return Consumer<TopRatedMoviesNotifier>(
-    builder: (context, data, child) {
-      if (data.state == RequestState.Loading) {
+  return BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
+    builder: (context, state) {
+      if (state is MovieTopRatedLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (data.state == RequestState.Loaded) {
+      } else if (state is MovieTopRatedHasData) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final movie = data.topRatedMovies[index];
+            final movie = state.topRated[index];
             return MovieCard(movie: movie);
           },
-          itemCount: data.topRatedMovies.length,
+          itemCount: state.topRated.length,
         );
-      } else {
+      } else if (state is MovieTopRatedError) {
         return Center(
-            key: const Key('error_message'), child: Text(data.message));
+            key: const Key('error_message'), child: Text(state.message));
+      } else {
+        return const Center(child: Text("Empty Data"));
       }
     },
   );

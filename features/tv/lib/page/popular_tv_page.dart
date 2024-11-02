@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:utils/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tv/bloc/popular/tv_popular_bloc.dart';
+import 'package:tv/bloc/popular/tv_popular_state.dart';
 import 'package:widget/tv_card.dart';
 
-import '../provider/popular_tv_series_notifier.dart';
+import '../bloc/popular/tv_popular_event.dart';
 
 class PopularTvPage extends StatefulWidget {
   const PopularTvPage({super.key});
@@ -16,9 +17,8 @@ class _PopularTvPageState extends State<PopularTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvSeriesNotifier>(context, listen: false)
-            .fetchPopularTvSeries());
+    Future.microtask(
+        () => BlocProvider.of<TvPopularBloc>(context).add(FetchPopularTv()));
   }
 
   @override
@@ -31,23 +31,25 @@ class _PopularTvPageState extends State<PopularTvPage> {
 }
 
 Widget _buildList() {
-  return Consumer<PopularTvSeriesNotifier>(
-    builder: (context, data, child) {
-      if (data.state == RequestState.Loading) {
+  return BlocBuilder<TvPopularBloc, TvPopularState>(
+    builder: (context, state) {
+      if (state is TvPopularLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (data.state == RequestState.Loaded) {
+      } else if (state is TvPopularHasData) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final tv = data.popularTvSeries[index];
+            final tv = state.popular[index];
             return TvCard(tv: tv);
           },
-          itemCount: data.popularTvSeries.length,
+          itemCount: state.popular.length,
         );
-      } else {
+      } else if (state is TvPopularError) {
         return Center(
-            key: const Key('error_message'), child: Text(data.message));
+            key: const Key('error_message'), child: Text(state.message));
+      } else {
+        return const Center(key: Key('empty_message'), child: Text("Empty"));
       }
     },
   );

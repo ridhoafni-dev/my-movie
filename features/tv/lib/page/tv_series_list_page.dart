@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:model/tv/tv.dart';
-import 'package:provider/provider.dart';
 import 'package:styles/text_styles.dart';
+import 'package:tv/bloc/list/tv_list_bloc.dart';
+import 'package:tv/bloc/list/tv_list_event.dart';
+import 'package:tv/bloc/list/tv_list_state.dart';
 import 'package:utils/utils.dart';
-
-import '../provider/tv_series_list_notifier.dart';
 
 class TvSeriesListPage extends StatefulWidget {
   const TvSeriesListPage({super.key});
@@ -18,11 +19,8 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<TvSeriesListNotifier>(context, listen: false)
-          ..fetchNowPlayingTvSeries()
-          ..fetchPopularTvSeries()
-          ..fetchTopRatedTvSeries());
+    Future.microtask(() =>
+        BlocProvider.of<TvListBloc>(context, listen: false).add(FetchTvList()));
   }
 
   @override
@@ -69,38 +67,28 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
 }
 
 Widget _buildTvList(TvType type) {
-  return Consumer<TvSeriesListNotifier>(builder: (context, tvData, child) {
-    RequestState state;
-    List<Tv> tvSeries = [];
-    switch (type) {
-      case TvType.NowPlaying: // tv is now playing
-        state = tvData.nowPlayingState;
-        tvSeries = tvData.nowPlayingTvSeries;
-        break;
-      case TvType.Popular: // tv is popular
-        state = tvData.popularState;
-        tvSeries = tvData.popularTvSeries;
-        break;
-      case TvType.TopRated: //tv is top-rated
-        state = tvData.topRatedState;
-        tvSeries = tvData.topRatedTvSeries;
-        break;
-      default:
-        state = RequestState.Empty;
-        tvSeries = List.empty();
-        break;
-    }
-
-    if (state == RequestState.Loading) {
+  return BlocBuilder<TvListBloc, TvListState>(builder: (context, state) {
+    if (state is TvListLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
-    } else if (state == RequestState.Loaded) {
+    } else if (state is TvListHasData) {
+      final tvSeries = type == TvType.NowPlaying
+          ? state.nowPlaying
+          : type == TvType.Popular
+              ? state.popular
+              : state.topRated;
+
       return TvList(tvSeries);
-    } else {
+    } else if (state is TvListError) {
       return Center(
         key: const Key('error_message'),
-        child: Text(tvData.message),
+        child: Text(state.message),
+      );
+    } else {
+      return const Center(
+        key: const Key('empty_message'),
+        child: Text('Empty'),
       );
     }
   });

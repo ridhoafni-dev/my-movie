@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:utils/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tv/bloc/top_rated/tv_top_rated_bloc.dart';
+import 'package:tv/bloc/top_rated/tv_top_rated_state.dart';
 import 'package:widget/tv_card.dart';
 
-import '../provider/top_rated_tv_series_notifier.dart';
+import '../bloc/top_rated/tv_top_rated_event.dart';
 
 class TopRatedTvPage extends StatefulWidget {
   const TopRatedTvPage({super.key});
@@ -16,9 +17,8 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedTvSeriesNotifier>(context, listen: false)
-            .fetchTopRatedTvSeries());
+    Future.microtask(
+        () => BlocProvider.of<TvTopRatedBloc>(context).add(FetchTopRatedTv()));
   }
 
   @override
@@ -31,23 +31,25 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
 }
 
 Widget _buildList() {
-  return Consumer<TopRatedTvSeriesNotifier>(
-    builder: (context, data, child) {
-      if (data.state == RequestState.Loading) {
+  return BlocBuilder<TvTopRatedBloc, TvTopRatedState>(
+    builder: (context, state) {
+      if (state is TvTopRatedLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (data.state == RequestState.Loaded) {
+      } else if (state is TvTopRatedHasData) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final tv = data.topRatedTvSeries[index];
+            final tv = state.topRated[index];
             return TvCard(tv: tv);
           },
-          itemCount: data.topRatedTvSeries.length,
+          itemCount: state.topRated.length,
         );
-      } else {
+      } else if (state is TvTopRatedError) {
         return Center(
-            key: const Key('error_message'), child: Text(data.message));
+            key: const Key('error_message'), child: Text(state.message));
+      } else {
+        return const Center(child: Text("Empty Data"));
       }
     },
   );

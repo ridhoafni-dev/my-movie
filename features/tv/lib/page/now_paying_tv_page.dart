@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:utils/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tv/bloc/now_playing/tv_now_playing_bloc.dart';
+import 'package:tv/bloc/now_playing/tv_now_playing_state.dart';
 import 'package:widget/tv_card.dart';
 
-import '../provider/now_playing_tv_series_notifier.dart';
+import '../bloc/now_playing/tv_now_playing_event.dart';
 
 class NowPlayingTvPage extends StatefulWidget {
   const NowPlayingTvPage({super.key});
@@ -17,8 +18,7 @@ class _NowPlayingTvPageState extends State<NowPlayingTvPage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<NowPlayingTvSeriesNotifier>(listen: false, context)
-            .fetchNowPlayingTvSeries());
+        BlocProvider.of<TvNowPlayingBloc>(context).add(FetchNowPlayingTv()));
   }
 
   @override
@@ -31,23 +31,25 @@ class _NowPlayingTvPageState extends State<NowPlayingTvPage> {
 }
 
 Widget _buildList() {
-  return Consumer<NowPlayingTvSeriesNotifier>(
-    builder: (context, data, child) {
-      if (data.state == RequestState.Loading) {
+  return BlocBuilder<TvNowPlayingBloc, TvNowPlayingState>(
+    builder: (context, state) {
+      if (state is TvNowPlayingLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (data.state == RequestState.Loaded) {
+      } else if (state is TvNowPlayingHasData) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            final tv = data.nowPlayingTvSeries[index];
+            final tv = state.nowPlaying[index];
             return TvCard(tv: tv);
           },
-          itemCount: data.nowPlayingTvSeries.length,
+          itemCount: state.nowPlaying.length,
         );
-      } else {
+      } else if (state is TvNowPlayingError) {
         return Center(
-            key: const Key('error_message'), child: Text(data.message));
+            key: const Key('error_message'), child: Text(state.message));
+      } else {
+        return const Center(key: Key('empty_message'), child: Text("Empty"));
       }
     },
   );

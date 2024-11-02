@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "335478987548",
+    "project_id": "ditonton-e222a",
+    "storage_bucket": "ditonton-e222a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335478987548:android:07565e18ffea8ad93e78d9",
+        "android_client_info": {
+          "package_name": "com.example.my_movie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOO_tPgL9Ox9tmRacE_BgQyq1X-7Ieok4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

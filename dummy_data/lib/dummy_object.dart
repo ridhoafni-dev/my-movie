@@ -19,6 +19,21 @@ final testMovieMap = {
   'title': 'title',
 };
 
+
+final testWatchlistMovie = Movie.watchlist(
+  id: 1,
+  title: 'title',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
+final testWatchlistTv = Tv.watchlist(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
 const testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
@@ -44,20 +59,6 @@ const testTvDetail = TvDetail(
   name: 'title',
   voteAverage: 1,
   voteCount: 1,
-);
-
-final testWatchlistTv = Tv.watchlist(
-  id: 1,
-  name: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
-
-final testWatchlistMovie = Movie.watchlist(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
 );
 
 final testMovie = Movie(

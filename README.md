@@ -2,7 +2,12 @@
 
 # my_movie
 
-Flutter expert
+Repository ini merupakan starter project submission kelas Flutter Expert Dicoding Indonesia.
+
+## Tips Submission Awal
+
+Pastikan untuk memeriksa kembali seluruh hasil testing pada submissionmu sebelum dikirimkan. Karena kriteria pada submission ini akan diperiksa setelah seluruh berkas testing berhasil dijalankan.
+
 
 ## Getting Started
 

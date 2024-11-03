@@ -49,7 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '335478987548',
     projectId: 'ditonton-e222a',
     authDomain: 'ditonton-e222a.firebaseapp.com',
-    storageBucket: 'ditonton-e222a.appspot.com',
+    storageBucket: 'ditonton-e222a.firebasestorage.app',
     measurementId: 'G-0KLLGZF6K9',
   );
 
@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:335478987548:android:07565e18ffea8ad93e78d9',
     messagingSenderId: '335478987548',
     projectId: 'ditonton-e222a',
-    storageBucket: 'ditonton-e222a.appspot.com',
+    storageBucket: 'ditonton-e222a.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -66,7 +66,7 @@ class DefaultFirebaseOptions {
     appId: '1:335478987548:ios:7541a21c4a09fd443e78d9',
     messagingSenderId: '335478987548',
     projectId: 'ditonton-e222a',
-    storageBucket: 'ditonton-e222a.appspot.com',
+    storageBucket: 'ditonton-e222a.firebasestorage.app',
     iosBundleId: 'com.example.myMovie',
   );
 
@@ -76,7 +76,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '335478987548',
     projectId: 'ditonton-e222a',
     authDomain: 'ditonton-e222a.firebaseapp.com',
-    storageBucket: 'ditonton-e222a.appspot.com',
+    storageBucket: 'ditonton-e222a.firebasestorage.app',
     measurementId: 'G-PFVCKLWT1Z',
   );
 }

@@ -1,6 +1,13 @@
+[![Codemagic build status](https://api.codemagic.io/apps/67258c671add259e896c48e8/67258c671add259e896c48e7/status_badge.svg)](https://codemagic.io/app/67258c671add259e896c48e8/67258c671add259e896c48e7/latest_build)
+
 # my_movie
 
-Flutter expert
+Repository ini merupakan starter project submission kelas Flutter Expert Dicoding Indonesia.
+
+## Tips Submission Awal
+
+Pastikan untuk memeriksa kembali seluruh hasil testing pada submissionmu sebelum dikirimkan. Karena kriteria pada submission ini akan diperiksa setelah seluruh berkas testing berhasil dijalankan.
+
 
 ## Getting Started
 

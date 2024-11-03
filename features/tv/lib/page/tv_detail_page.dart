@@ -5,7 +5,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:model/genre/genre.dart';
 import 'package:model/tv/tv.dart';
 import 'package:model/tv/tv_detail.dart';
-import 'package:provider/provider.dart';
 import 'package:styles/colors.dart';
 import 'package:styles/text_styles.dart';
 import 'package:tv/bloc/detail/tv_detail_bloc.dart';

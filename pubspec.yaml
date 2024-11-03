@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^2.8.0
   firebase_crashlytics: ^3.0.17
   firebase_analytics: ^10.1.6
+  http: ^1.2.2
+  bloc_test: ^9.1.1
 
   utils:
     path: core/utils
@@ -68,6 +70,8 @@ dependencies:
     path: features/tv
   watchlist:
     path: features/watchlist
+  dummy_data:
+    path: dummy_data
 
 dev_dependencies:
   flutter_test:

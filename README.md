@@ -1,4 +1,4 @@
-[![Codemagic build status](https://api.codemagic.io/apps/6726e832d1a257bd2b6146ef/67258c671add259e896c48e7/status_badge.svg)](https://codemagic.io/app/6726e832d1a257bd2b6146ef/67258c671add259e896c48e7/latest_build)
+[![Codemagic build status](https://api.codemagic.io/apps/67258c671add259e896c48e8/67258c671add259e896c48e7/status_badge.svg)](https://codemagic.io/app/67258c671add259e896c48e8/67258c671add259e896c48e7/latest_build)
 
 # my_movie
 

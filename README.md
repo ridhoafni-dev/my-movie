@@ -1,3 +1,5 @@
+[![Codemagic build status](https://api.codemagic.io/apps/6726e832d1a257bd2b6146ef/67258c671add259e896c48e8/status_badge.svg)](https://codemagic.io/app/6726e832d1a257bd2b6146ef/<workflow-id>/latest_build)
+
 # my_movie
 
 Flutter expert

@@ -286,7 +286,7 @@ void main() {
   });
 
   group('remove watchlist', () {
-    test('should return success message when remove successful', () async {
+    test('should return success message when remove successful ', () async {
       // arrange
       when(mockTvLocalDataSource.removeTvWatchlist(testTvTable))
           .thenAnswer((_) async => 'Removed from watchlist');

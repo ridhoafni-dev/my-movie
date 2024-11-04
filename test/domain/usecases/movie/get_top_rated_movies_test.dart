@@ -17,7 +17,7 @@ void main() {
 
   final tMovies = <Movie>[];
 
-  test('should get list of movies from repository', () async {
+  test('should get list of movies from repository ', () async {
     // arrange
     when(mockMovieRepository.getTopRatedMovies())
         .thenAnswer((_) async => Right(tMovies));

@@ -287,7 +287,7 @@ void main() {
   group('remove watchlist', () {
     test('should return success message when remove successful', () async {
       // arrange
-      when(mockTvLocalDataSource.removeTvWatchlist(testTvTable))
+      when(mockTvLocalDataSource.removeTvWatchlist(testRemoveTvTable))
           .thenAnswer((_) async => 'Removed from watchlist');
       // act
       final result = await tvRepositoryImpl.removeWatchlist(testTvDetail);
@@ -297,7 +297,7 @@ void main() {
 
     test('should return DatabaseFailure when remove unsuccessful', () async {
       // arrange
-      when(mockTvLocalDataSource.removeTvWatchlist(testTvTable)).thenThrow(
+      when(mockTvLocalDataSource.removeTvWatchlist(testRemoveTvTable)).thenThrow(
           const DatabaseException(message: 'Failed to remove watchlist'));
       // act
       final result = await tvRepositoryImpl.removeWatchlist(testTvDetail);

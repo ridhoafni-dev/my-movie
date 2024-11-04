@@ -13,6 +13,11 @@ dependencies:
   dartz: ^0.10.1
   equatable: ^2.0.5
 
+  response:
+    path: ../response
+  utils:
+    path: ../core/utils
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

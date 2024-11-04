@@ -12,6 +12,9 @@ const testMovieTable = MovieTable(
 const testTvTable = TvTable(
     id: 1, title: "name", posterPath: "posterPath", overview: "overview");
 
+const testInsertTvTable = TvTable(
+    id: 1, title: "title", posterPath: "posterPath", overview: "overview");
+
 const testRemoveTvTable = TvTable(
     id: 1, title: "title", posterPath: "posterPath", overview: "overview");
 

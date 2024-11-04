@@ -10,7 +10,7 @@ const testMovieTable = MovieTable(
     id: 1, title: "title", posterPath: "posterPath", overview: "overview");
 
 const testTvTable = TvTable(
-    id: 1, title: "title", posterPath: "posterPath", overview: "overview");
+    id: 1, title: "name", posterPath: "posterPath", overview: "overview");
 
 final testMovieMap = {
   'id': 1,

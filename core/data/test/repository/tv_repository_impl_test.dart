@@ -265,7 +265,7 @@ void main() {
   group('save watchlist', () {
     test('should return success message when saving successful', () async {
       // arrange
-    when(mockTvLocalDataSource.insertTvWatchlist(testTvTable))
+    when(mockTvLocalDataSource.insertTvWatchlist(testInsertTvTable))
           .thenAnswer((_) async => 'Added to Watchlist');
       // act
       final result = await tvRepositoryImpl.saveWatchlist(testTvDetail);
@@ -275,7 +275,7 @@ void main() {
 
     test('should return DatabaseFailure when saving unsuccessful', () async {
       // arrange
-      when(mockTvLocalDataSource.insertTvWatchlist(testTvTable)).thenThrow(
+      when(mockTvLocalDataSource.insertTvWatchlist(testInsertTvTable)).thenThrow(
           const DatabaseException(message: 'Failed to add watchlist'));
       // act
       final result = await tvRepositoryImpl.saveWatchlist(testTvDetail);

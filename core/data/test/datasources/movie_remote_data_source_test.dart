@@ -9,7 +9,7 @@ import 'package:response/movie/movie_response.dart';
 import 'package:utils/utils/exception.dart';
 
 import '../helpers/test_helper.mocks.dart';
-import '../../../utils/lib/utils/json_reader.dart';
+import 'package:utils/utils/json_reader.dart';
 
 void main() {
   const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
